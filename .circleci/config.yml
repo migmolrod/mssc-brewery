@@ -1,0 +1,16 @@
+version: 2.1
+
+setup: true
+orbs:
+  path-filtering: circleci/path-filtering@0.0.2
+
+workflows:
+  setup:
+    jobs:
+      - path-filtering/filter:
+          base-revision: master
+          mapping: |
+            services/mssc-beer-inventory-service/.* run-inventory-srv-workflow true
+            services/mssc-beer-order-service/.* run-order-srv-workflow true
+            services/mssc-beer-service/.* run-beer-srv-workflow true
+          config-path: .circleci/config-workflows.yml

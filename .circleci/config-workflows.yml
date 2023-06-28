@@ -1,0 +1,105 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.5.0
+
+parameters:
+  run-inventory-srv-workflow:
+    type: boolean
+    default: false
+  run-order-srv-workflow:
+    type: boolean
+    default: false
+  run-beer-srv-workflow:
+    type: boolean
+    default: false
+
+jobs:
+  inventory-service-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: small
+    working_directory: ~/repo
+    environment:
+      MAVEN_OPTS: -Xmx1024m
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: maven dependencies
+          command: "mvn dependency:go-offline"
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: test
+          command: "mvn test -pl services/mssc-beer-order-service"
+  order-service-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: small
+    working_directory: ~/repo
+    environment:
+      MAVEN_OPTS: -Xmx1024m
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: maven dependencies
+          command: "mvn dependency:go-offline"
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: test
+          command: "mvn test -pl services/mssc-beer-inventory-service"
+  beer-service-build:
+    docker:
+      - image: cimg/openjdk:11.0
+    resource_class: small
+    working_directory: ~/repo
+    environment:
+      MAVEN_OPTS: -Xmx1024m
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: maven dependencies
+          command: "mvn dependency:go-offline"
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run:
+          name: test
+          command: "mvn test -pl services/mssc-beer-service"
+
+workflows:
+  inventory-service:
+    when: << pipeline.parameters.run-inventory-srv-workflow >>
+    jobs:
+      - inventory-service-build
+  order-service:
+    when: << pipeline.parameters.run-order-srv-workflow >>
+    jobs:
+      - order-service-build
+  beer-service:
+    when: << pipeline.parameters.run-beer-srv-workflow >>
+    jobs:
+      - beer-service-build
+
+#    when:
+#      or:
+#        - << pipeline.parameters.library-modified >>
+#        - << pipeline.parameters.run-product-service-workflow >>
