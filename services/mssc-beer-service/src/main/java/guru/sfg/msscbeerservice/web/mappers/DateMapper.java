@@ -1,4 +1,4 @@
-package guru.springframework.msscbeerservice.web.mappers;
+package guru.sfg.msscbeerservice.web.mappers;
 
 import org.springframework.stereotype.Component;
 

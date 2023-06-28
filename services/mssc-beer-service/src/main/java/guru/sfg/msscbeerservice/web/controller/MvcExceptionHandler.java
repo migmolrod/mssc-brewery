@@ -1,4 +1,4 @@
-package guru.springframework.msscbeerservice.web.controller;
+package guru.sfg.msscbeerservice.web.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.List;
 public class MvcExceptionHandler {
 
   @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<List> validationErrorHandler(ConstraintViolationException ex) {
+  public ResponseEntity<List<String>> validationErrorHandler(ConstraintViolationException ex) {
     List<String> errorsList = new ArrayList<>(ex.getConstraintViolations().size());
 
     ex.getConstraintViolations().forEach(error -> errorsList.add(error.toString()));

@@ -1,4 +1,4 @@
-package guru.springframework.msscbeerservice.web.controller;
+package guru.sfg.msscbeerservice.web.controller;
 
 /**
  * Created by jt on 2019-06-06.
