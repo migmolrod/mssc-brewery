@@ -5,6 +5,8 @@ Concept) for future projects based on microservices.
 
 ## Services
 
-1. beer-service
-2. beer-order-service
-3. beer-inventory-service
+| Service name                | Port |
+|-----------------------------|------|
+| mssc-beer-service           | 9031 |
+| mssc-beer-order-service     | 9032 |
+| mssc-beer-inventory-service | 9033 |
