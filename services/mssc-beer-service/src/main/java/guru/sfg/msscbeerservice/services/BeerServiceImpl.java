@@ -27,7 +27,7 @@ public class BeerServiceImpl implements BeerService {
   private final BeerMapper beerMapper;
 
   @Override
-  public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, Pageable pageable) {
+  public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, Boolean showInventory, Pageable pageable) {
     Page<Beer> beerPage;
     BeerPagedList beerPagedList;
 
@@ -41,24 +41,42 @@ public class BeerServiceImpl implements BeerService {
       beerPage = beerRepository.findAll(pageable);
     }
 
-    beerPagedList = new BeerPagedList(
-        beerPage
-            .getContent()
-            .stream()
-            .map(beerMapper::beerToBeerDto)
-            .collect(Collectors.toList()),
-        PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()),
-        beerPage.getTotalElements()
-    );
+    if (Boolean.TRUE.equals(showInventory)) {
+      beerPagedList = new BeerPagedList(
+          beerPage
+              .getContent()
+              .stream()
+              .map(beerMapper::beerToBeerDtoExtra)
+              .collect(Collectors.toList()),
+          PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()),
+          beerPage.getTotalElements()
+      );
+    } else {
+      beerPagedList = new BeerPagedList(
+          beerPage
+              .getContent()
+              .stream()
+              .map(beerMapper::beerToBeerDto)
+              .collect(Collectors.toList()),
+          PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()),
+          beerPage.getTotalElements()
+      );
+    }
 
     return beerPagedList;
   }
 
   @Override
-  public BeerDto getById(UUID beerId) {
-    return beerMapper.beerToBeerDto(
-        beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
-    );
+  public BeerDto getById(UUID beerId, Boolean showInventory) {
+    if (Boolean.TRUE.equals(showInventory)) {
+      return beerMapper.beerToBeerDtoExtra(
+          beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+      );
+    } else {
+      return beerMapper.beerToBeerDto(
+          beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+      );
+    }
   }
 
   @Override
