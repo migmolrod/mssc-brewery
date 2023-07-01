@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MSSC Brewery Services" type="CompoundRunConfigurationType">
+    <toRun name="BeerInventoryApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="BeerOrderServiceApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="BeerServiceApplication" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
