@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.sfg.msscbeerservice.services.BeerService;
 import guru.sfg.msscbeerservice.web.model.BeerDto;
 import guru.sfg.msscbeerservice.web.model.BeerStyleEnum;
-import guru.sfg.msscbeerservice.bootstrap.BeerLoader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -74,7 +73,7 @@ class BeerControllerTest {
         .beerName("My Beer")
         .beerStyle(BeerStyleEnum.ALE)
         .price(new BigDecimal("2.99"))
-        .upc(BeerLoader.BEER_1_UPC)
+        .upc("0631234200036")
         .build();
   }
 }
