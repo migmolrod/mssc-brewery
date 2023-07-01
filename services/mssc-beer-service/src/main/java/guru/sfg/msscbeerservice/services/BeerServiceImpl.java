@@ -68,7 +68,7 @@ public class BeerServiceImpl implements BeerService {
     return beerPagedList;
   }
 
-  @Cacheable(cacheNames = "beer-single-cache", key="#beerId", condition = "#showInventory == false")
+  @Cacheable(cacheNames = "beer-uuid-cache", key="#beerId", condition = "#showInventory == false")
   @Override
   public BeerDto getById(UUID beerId, Boolean showInventory) {
     if (Boolean.TRUE.equals(showInventory)) {
@@ -78,6 +78,20 @@ public class BeerServiceImpl implements BeerService {
     } else {
       return beerMapper.beerToBeerDto(
           beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+      );
+    }
+  }
+
+  @Cacheable(cacheNames = "beer-upc-cache", key="#upc", condition = "#showInventoryOnHand == false")
+  @Override
+  public BeerDto getByUpc(String upc, Boolean showInventoryOnHand) {
+    if (Boolean.TRUE.equals(showInventoryOnHand)) {
+      return beerMapper.beerToBeerDtoExtra(
+          beerRepository.findByUpc(upc)
+      );
+    } else {
+      return beerMapper.beerToBeerDto(
+          beerRepository.findByUpc(upc)
       );
     }
   }
