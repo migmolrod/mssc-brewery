@@ -8,6 +8,7 @@ import guru.sfg.msscbeerservice.web.model.BeerDto;
 import guru.sfg.msscbeerservice.web.model.BeerPagedList;
 import guru.sfg.msscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ public class BeerServiceImpl implements BeerService {
   private final BeerRepository beerRepository;
   private final BeerMapper beerMapper;
 
+  @Cacheable(cacheNames = "beer-list-cache", condition = "#showInventory == false")
   @Override
   public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, Boolean showInventory, Pageable pageable) {
     Page<Beer> beerPage;
@@ -66,6 +68,7 @@ public class BeerServiceImpl implements BeerService {
     return beerPagedList;
   }
 
+  @Cacheable(cacheNames = "beer-single-cache", key="#beerId", condition = "#showInventory == false")
   @Override
   public BeerDto getById(UUID beerId, Boolean showInventory) {
     if (Boolean.TRUE.equals(showInventory)) {
