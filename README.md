@@ -17,4 +17,4 @@ Run `docker run --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 -d mysq
 
 ## Message
 
-Run `docker run --name mssc-brewery-queue -d activemq:latest` to use a local ActiveMQ Artemis instance.
+Run `docker run -d --name activemq-artemis -p 61616:61616 -p 8161:8161 -e ARTEMIS_USER=admin -e ARTEMIS_PASSWORD=admin makyo/activemq-artemis` to use a local ActiveMQ Artemis instance.

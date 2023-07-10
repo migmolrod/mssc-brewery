@@ -23,7 +23,7 @@ public class PingSender {
   private final JmsTemplate jmsTemplate;
   private final ObjectMapper objectMapper;
 
-  @Scheduled(fixedRate = 60000)
+  @Scheduled(fixedRate = 10000)
   public void sendMessage() {
     PingMessage message = PingMessage
         .builder()
