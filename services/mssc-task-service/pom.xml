@@ -5,7 +5,7 @@
 
   <parent>
     <groupId>guru.springframework</groupId>
-    <artifactId>services</artifactId>
+    <artifactId>mssc-services</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
@@ -19,6 +19,17 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-artemis</artifactId>
     </dependency>
+
+    <!-- FIXME only for local/testing purposes -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>artemis-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>artemis-jms-server</artifactId>
+    </dependency>
+
   </dependencies>
 
 </project>

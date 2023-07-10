@@ -9,6 +9,9 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsConfig {
 
+  public static final String PING_QUEUE = "ping-queue";
+  public static final String PING_PONG_QUEUE = "ping-pong-queue";
+
   @Bean
   public MessageConverter messageConverter() {
     MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();

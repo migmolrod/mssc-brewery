@@ -14,3 +14,7 @@ Concept) for future projects based on microservices.
 ## Database
 
 Run `docker run --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8` to use a local MySQL database.
+
+## Message
+
+Run `docker run --name mssc-brewery-queue -d activemq:latest` to use a local ActiveMQ Artemis instance.
