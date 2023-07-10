@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/mssc-task-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/producer-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/producer/src/main/java" charset="UTF-8" />

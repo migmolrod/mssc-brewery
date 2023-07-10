@@ -11,7 +11,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>services</artifactId>
+  <artifactId>mssc-services</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>mssc-brewery-services</name>
@@ -20,6 +20,7 @@
     <module>mssc-beer-inventory-service</module>
     <module>mssc-beer-order-service</module>
     <module>mssc-beer-service</module>
+    <module>mssc-task-service</module>
   </modules>
 
   <dependencies>
