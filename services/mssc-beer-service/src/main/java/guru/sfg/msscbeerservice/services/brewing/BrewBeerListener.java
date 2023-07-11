@@ -30,8 +30,9 @@ public class BrewBeerListener {
     beerDto.setQuantityOnHand(beer.getQuantityToBrew());
 
     log.debug("Brewing event caught for beer {} ({}). Min on hand = {} and current inventory = {}. Sending 'add " +
-            "inventory' event",
-        beer.getBeerName(), beer.getUpc(), beer.getMinOnHand(), beerDto.getQuantityOnHand());
+            "inventory' event with quantity to brew {}",
+        beer.getBeerName(), beer.getUpc(), beer.getMinOnHand(), beerDto.getQuantityOnHand(),
+        beer.getQuantityToBrew());
     BeerEvent addInventoryEvent = new AddInventoryEvent(beerDto);
 
     jmsTemplate.convertAndSend(JmsConfig.ADD_INVENTORY_QUEUE, addInventoryEvent);

@@ -36,7 +36,7 @@ import java.util.UUID;
 @Entity
 public class BeerInventory extends BaseEntity {
 
-  @Column(length = 36, columnDefinition = "varchar(36)")
+  @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
   @Type(type = "org.hibernate.type.UUIDCharType")
   private UUID beerId;
   private String upc;

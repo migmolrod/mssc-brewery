@@ -31,8 +31,8 @@ public class BeerBootstrap implements CommandLineRunner {
           .builder()
           .beerName("Mango Bobs")
           .beerStyle("IPA")
-          .minOnHand(41)
-          .quantityToBrew(11)
+          .minOnHand(11)
+          .quantityToBrew(110)
           .upc(BEER_1_UPC)
           .price(new BigDecimal("12.95"))
           .build());
@@ -42,8 +42,8 @@ public class BeerBootstrap implements CommandLineRunner {
           .builder()
           .beerName("Galaxy Cat")
           .beerStyle("PALE_ALE")
-          .minOnHand(42)
-          .quantityToBrew(12)
+          .minOnHand(12)
+          .quantityToBrew(120)
           .upc(BEER_2_UPC)
           .price(new BigDecimal("8.99"))
           .build());
@@ -53,8 +53,8 @@ public class BeerBootstrap implements CommandLineRunner {
           .builder()
           .beerName("Pinball Porter")
           .beerStyle("PORTER")
-          .minOnHand(43)
-          .quantityToBrew(13)
+          .minOnHand(13)
+          .quantityToBrew(130)
           .upc(BEER_3_UPC)
           .price(new BigDecimal("5.25"))
           .build());
