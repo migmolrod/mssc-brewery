@@ -1,4 +1,4 @@
-package guru.sfg.msscbeerservice.services;
+package guru.sfg.msscbeerservice.services.brewing;
 
 import guru.sfg.msscbeerservice.config.JmsConfig;
 import guru.sfg.msscbeerservice.domain.Beer;
@@ -18,15 +18,14 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class BrewingServiceImpl implements BrewingService {
+public class BrewingService {
 
   private final BeerRepository beerRepository;
   private final BeerInventoryService beerInventoryService;
   private final JmsTemplate jmsTemplate;
   private final BeerMapper beerMapper;
 
-  @Override
-  @Scheduled(fixedRate = 5000)
+  @Scheduled(fixedRate = 30000)
   public void checkForLowInventory() {
     List<Beer> beers = beerRepository.findAll();
 
@@ -34,8 +33,9 @@ public class BrewingServiceImpl implements BrewingService {
       Integer inventoryQuantityOnHand = beerInventoryService.getOnHandInventory(beer.getId());
 
       if (beer.getMinOnHand() >= inventoryQuantityOnHand) {
-        log.debug("Beer {} low inventory. Min on hand = {} and current inventory is {}. Sending brewing event.",
-            beer.getId(), beer.getMinOnHand(), inventoryQuantityOnHand);
+        log.debug("Beer {} ({}) low inventory. Min on hand = {} and current inventory = {}. Sending 'brewing " +
+                "request' event",
+            beer.getBeerName(), beer.getUpc(), beer.getMinOnHand(), inventoryQuantityOnHand);
 
         BeerEvent event = new BrewBeerEvent(beerMapper.beerToBeerDto(beer));
 
