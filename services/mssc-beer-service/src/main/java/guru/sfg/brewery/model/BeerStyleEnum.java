@@ -1,4 +1,4 @@
-package guru.sfg.msscbeerservice.web.model;
+package guru.sfg.brewery.model;
 
 /**
  * Created by jt on 2019-05-12.

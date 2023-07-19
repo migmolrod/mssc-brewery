@@ -1,6 +1,6 @@
-package guru.sfg.msscbeerservice.events;
+package guru.sfg.brewery.model.events;
 
-import guru.sfg.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

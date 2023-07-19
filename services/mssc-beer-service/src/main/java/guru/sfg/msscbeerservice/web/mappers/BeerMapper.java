@@ -1,7 +1,7 @@
 package guru.sfg.msscbeerservice.web.mappers;
 
 import guru.sfg.msscbeerservice.domain.Beer;
-import guru.sfg.msscbeerservice.web.model.BeerDto;
+import guru.sfg.brewery.model.BeerDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 

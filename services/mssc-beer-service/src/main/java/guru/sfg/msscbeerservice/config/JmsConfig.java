@@ -1,7 +1,7 @@
 package guru.sfg.msscbeerservice.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import guru.sfg.msscbeerservice.events.AddInventoryEvent;
+import guru.sfg.brewery.model.events.AddInventoryEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;

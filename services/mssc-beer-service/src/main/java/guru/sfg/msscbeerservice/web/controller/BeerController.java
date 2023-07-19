@@ -1,9 +1,9 @@
 package guru.sfg.msscbeerservice.web.controller;
 
 import guru.sfg.msscbeerservice.services.BeerService;
-import guru.sfg.msscbeerservice.web.model.BeerDto;
-import guru.sfg.msscbeerservice.web.model.BeerPagedList;
-import guru.sfg.msscbeerservice.web.model.BeerStyleEnum;
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerPagedList;
+import guru.sfg.brewery.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
