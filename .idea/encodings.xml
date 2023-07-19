@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/monoliths/brewery-monolith/src/main/java" charset="UTF-8" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-order-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/mssc-payment-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-task-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/order-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/producer-client/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/producer/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/producer/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/product-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/product-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
