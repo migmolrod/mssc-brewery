@@ -28,8 +28,8 @@ public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdap
                              Message<BeerOrderEventEnum> message,
                              Transition<BeerOrderStatusEnum, BeerOrderEventEnum> transition,
                              StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine) {
-    Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((UUID) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L))).ifPresent(orderId -> {
-      BeerOrder order = this.beerOrderRepository.getOne(orderId);
+    Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L))).ifPresent(orderId -> {
+      BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
       order.setOrderStatus(state.getId());
       beerOrderRepository.save(order);
     });
