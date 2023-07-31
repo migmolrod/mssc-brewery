@@ -6,7 +6,7 @@ import guru.sfg.beer.order.service.domain.BeerOrderStatusEnum;
 import guru.sfg.beer.order.service.repositories.BeerOrderRepository;
 import guru.sfg.beer.order.service.services.BeerOrderManagerImpl;
 import guru.sfg.beer.order.service.web.mappers.BeerOrderMapper;
-import guru.sfg.brewery.model.events.ValidateOrderRequest;
+import guru.sfg.brewery.model.events.AllocateOrderRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
+public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
   private final BeerOrderRepository repository;
   private final BeerOrderMapper mapper;
@@ -30,10 +30,11 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
     String beerOrderId = (String) context.getMessage().getHeaders().get(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER);
 
     repository.findById(UUID.fromString(beerOrderId)).ifPresent(beerOrder -> {
-      ValidateOrderRequest request = ValidateOrderRequest.builder()
+      AllocateOrderRequest request = AllocateOrderRequest.builder()
           .beerOrder(mapper.beerOrderToDto(beerOrder))
           .build();
-      jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_QUEUE, request);
+      jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE, request);
     });
   }
+
 }

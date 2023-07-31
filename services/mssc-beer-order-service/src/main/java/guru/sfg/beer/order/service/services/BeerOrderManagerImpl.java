@@ -35,7 +35,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     beerOrder.setOrderStatus(BeerOrderStatusEnum.NEW);
 
     BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
-    sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.VALIDATE_ORDER);
+    sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.START_VALIDATION);
 
     return savedBeerOrder;
   }
@@ -46,6 +46,12 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     beerOrderRepository.findById(beerOrderId).ifPresent(beerOrder -> {
       if (valid) {
         sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.APPROVE_VALIDATION);
+
+        // Read again beer order since the above `beerOrder` variable will be stale
+        // and Hibernate may have trouble actually using it
+        BeerOrder validatedBeerOrder = beerOrderRepository.getOne(beerOrderId);
+
+        sendBeerOrderEvent(validatedBeerOrder, BeerOrderEventEnum.START_ALLOCATION);
       } else {
         sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.DENY_VALIDATION);
       }
