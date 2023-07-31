@@ -22,13 +22,21 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
+
   private final BeerOrderRepository repository;
   private final BeerOrderMapper mapper;
   private final JmsTemplate jmsTemplate;
 
   @Override
   public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> context) {
-    String beerOrderId = (String) context.getMessage().getHeaders().get(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER);
+    String beerOrderId = (String) context
+        .getMessage()
+        .getHeaders()
+        .get(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER);
+    if (beerOrderId == null) {
+      log.error("Beer order ID is null");
+      return;
+    }
     Optional<BeerOrder> beerOrderOptional = repository.findById(UUID.fromString(beerOrderId));
 
     beerOrderOptional.ifPresent(beerOrder -> {
