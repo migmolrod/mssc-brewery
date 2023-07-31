@@ -20,8 +20,8 @@ public class ValidateOrderListener {
   private final JmsTemplate jmsTemplate;
 
   @JmsListener(destination = JmsConfig.VALIDATE_ORDER_QUEUE)
-  public void listen(@Payload ValidateOrderRequest payload) {
-    BeerOrderDto beerOrder = payload.getBeerOrder();
+  public void listen(@Payload ValidateOrderRequest validateOrderRequest) {
+    BeerOrderDto beerOrder = validateOrderRequest.getBeerOrder();
 
     ValidateOrderResponse response = ValidateOrderResponse
         .builder()
