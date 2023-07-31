@@ -17,7 +17,7 @@ public class BeerOrderValidationListener {
   private final BeerOrderManager beerOrderManager;
 
   @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
-  public void listen(@Payload ValidateOrderResponse validateOrderResponse) {
-    beerOrderManager.processBeerOrderValidation(validateOrderResponse.getBeerOrderId(), validateOrderResponse.getIsValid());
+  public void listen(@Payload ValidateOrderResponse response) {
+    beerOrderManager.processBeerOrderValidation(response.getBeerOrderId(), response.getIsValid());
   }
 }
