@@ -4,7 +4,7 @@ import guru.sfg.beer.order.service.domain.BeerOrder;
 import guru.sfg.beer.order.service.domain.BeerOrderEventEnum;
 import guru.sfg.beer.order.service.domain.BeerOrderStatusEnum;
 import guru.sfg.beer.order.service.repositories.BeerOrderRepository;
-import guru.sfg.beer.order.service.state.BeerOrderStateChangeInterceptor;
+import guru.sfg.beer.order.service.state.BeerOrderStatusChangeInterceptor;
 import guru.sfg.brewery.model.BeerOrderDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
   private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
   private final BeerOrderRepository beerOrderRepository;
-  private final BeerOrderStateChangeInterceptor beerOrderStateChangeInterceptor;
+  private final BeerOrderStatusChangeInterceptor beerOrderStateChangeInterceptor;
 
   @Override
   @Transactional
@@ -86,7 +86,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine = build(beerOrder);
 
     Message<BeerOrderEventEnum> message = MessageBuilder.withPayload(event)
-        .setHeader(BEER_ORDER_ID_HEADER, beerOrder.getId())
+        .setHeader(BEER_ORDER_ID_HEADER, beerOrder.getId().toString())
         .build();
 
     stateMachine.sendEvent(message);

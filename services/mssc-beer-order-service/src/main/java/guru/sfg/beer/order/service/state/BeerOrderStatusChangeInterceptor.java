@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum,
+public class BeerOrderStatusChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum,
     BeerOrderEventEnum> {
 
   private final BeerOrderRepository beerOrderRepository;
