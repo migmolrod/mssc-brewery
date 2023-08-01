@@ -15,6 +15,9 @@ import java.util.UUID;
 @Component
 public class BeerServiceRestTemplateImpl implements BeerService {
 
+  public static final String URI_BEER_BY_ID = "api/v1/beer";
+  public static final String URI_BEER_BY_UPC = "api/v1/beer/upc";
+
   private final RestTemplate restTemplate;
 
   private String beerServiceHost;
@@ -31,7 +34,7 @@ public class BeerServiceRestTemplateImpl implements BeerService {
   public Optional<BeerDto> getBeerByUuid(UUID beerId) {
     log.debug("Calling 'Beer Service' from 'Order Service' using UUID {}", beerId);
 
-    String url = String.format("%s/%s/%s", beerServiceHost, "api/v1/beer", beerId);
+    String url = String.format("%s/%s/%s", beerServiceHost, URI_BEER_BY_ID, beerId);
 
     return Optional.ofNullable(
         restTemplate.getForObject(url, BeerDto.class)
@@ -42,7 +45,7 @@ public class BeerServiceRestTemplateImpl implements BeerService {
   public Optional<BeerDto> getBeerByUpc(String upc) {
     log.debug("Calling 'Beer Service' from 'Order Service' using UPC {}", upc);
 
-    String url = String.format("%s/%s/%s", beerServiceHost, "api/v1/beer/upc", upc);
+    String url = String.format("%s/%s/%s", beerServiceHost, URI_BEER_BY_UPC, upc);
 
     return Optional.ofNullable(
         restTemplate.getForObject(url, BeerDto.class)
