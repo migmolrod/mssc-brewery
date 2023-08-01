@@ -14,4 +14,10 @@
   <name>mssc-beer-inventory-service</name>
   <description>MSSC Beer Inventory Service</description>
 
+  <properties>
+    <service.name>mssc-beer-service</service.name>
+    <version.phase>${version.update.enable}</version.phase>
+    <service.version>${beer-inventory-service.version}</service.version>
+  </properties>
+
 </project>

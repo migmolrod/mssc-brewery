@@ -14,6 +14,12 @@
   <name>mssc-beer-service</name>
   <description>MSSC Beer Service</description>
 
+  <properties>
+    <service.name>mssc-beer-service</service.name>
+    <version.phase>${version.update.enable}</version.phase>
+    <service.version>${beer-service.version}</service.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>javax.xml.bind</groupId>
