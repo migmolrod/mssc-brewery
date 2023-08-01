@@ -1,6 +1,5 @@
 package guru.sfg.beer.order.service.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -75,7 +74,7 @@ class BeerOrderManagerImplIntegrationTest {
   }
 
   @Test
-  void testNewToAllocated() throws JsonProcessingException {
+  void testNewToAllocated() throws Exception {
     BeerDto beerDto = BeerDto.builder().id(beerId).upc(beerUpc).build();
 //    BeerPagedList list = new BeerPagedList(List.of(beerDto));
 
@@ -85,6 +84,10 @@ class BeerOrderManagerImplIntegrationTest {
     BeerOrder beerOrder = createBeerOrder();
 
     BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+    Thread.sleep(5000);
+
+    savedBeerOrder = beerOrderRepository.findById(savedBeerOrder.getId()).get();
 
     assertNotNull(savedBeerOrder);
     assertEquals(BeerOrderStatusEnum.ALLOCATION_APPROVED, savedBeerOrder.getOrderStatus());
