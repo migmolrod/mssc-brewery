@@ -15,7 +15,7 @@
   <description>MSSC Beer Order Service</description>
 
   <properties>
-    <service.name>mssc-beer-service</service.name>
+    <service.name>mssc-beer-order-service</service.name>
     <version.phase>${version.update.enable}</version.phase>
     <service.version>${beer-order-service.version}</service.version>
   </properties>
