@@ -20,8 +20,6 @@
     <module>mssc-beer-inventory-service</module>
     <module>mssc-beer-order-service</module>
     <module>mssc-beer-service</module>
-    <module>mssc-task-service</module>
-    <module>mssc-payment-service</module>
   </modules>
 
   <dependencies>
