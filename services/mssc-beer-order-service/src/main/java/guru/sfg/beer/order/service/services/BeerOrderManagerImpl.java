@@ -97,6 +97,17 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     );
   }
 
+  @Override
+  @Transactional
+  public void pickUpOrder(UUID beerOrderId) {
+    Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+
+    beerOrderOptional.ifPresentOrElse(
+        beerOrder -> sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.PICK_UP),
+        () -> log.error("Order not found. Id {}", beerOrderId)
+    );
+  }
+
   private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum event) {
     StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine = build(beerOrder);
 

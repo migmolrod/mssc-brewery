@@ -38,7 +38,7 @@ public class BeerOrderStatusChangeInterceptor extends StateMachineInterceptorAda
         .flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L)))
         .ifPresent(orderId -> {
           BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
-          log.debug("Saving order status for order {}, from {} to {}",
+          log.info("Transition order status for order {}, from {} to {}",
               order.getId(),
               order.getOrderStatus(),
               state.getId());
