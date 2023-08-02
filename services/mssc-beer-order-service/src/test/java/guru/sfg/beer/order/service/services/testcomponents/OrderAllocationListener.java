@@ -24,7 +24,6 @@ public class OrderAllocationListener {
     boolean allocationError = false;
     boolean sendResponse = true;
 
-    //set allocation error
     if (request.getBeerOrder().getCustomerRef() != null) {
       switch (request.getBeerOrder().getCustomerRef()) {
         case "fail-allocation":

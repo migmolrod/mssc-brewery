@@ -25,10 +25,13 @@ public class OrderValidationListener {
     ValidateOrderRequest request = (ValidateOrderRequest) msg.getPayload();
 
     if (request.getBeerOrder().getCustomerRef() != null) {
-      if (request.getBeerOrder().getCustomerRef().equals("fail-validation")) {
-        isValid = false;
-      } else if (request.getBeerOrder().getCustomerRef().equals("dont-validate")) {
-       sendResponse = false;
+      switch (request.getBeerOrder().getCustomerRef()) {
+        case "fail-validation":
+          isValid = false;
+          break;
+        case "dont-validate":
+          sendResponse = false;
+          break;
       }
     }
 
