@@ -14,6 +14,8 @@ public class JmsConfig {
   public final static String VALIDATE_ORDER_RESPONSE_QUEUE = "validate-order-response";
   public final static String ALLOCATE_ORDER_QUEUE = "allocate-order";
   public final static String ALLOCATE_ORDER_RESPONSE_QUEUE = "allocate-order-response";
+  public final static String PICKUP_ORDER_QUEUE = "pickup-order";
+  public final static String PICKUP_ORDER_RESPONSE_QUEUE = "pickup-order-response";
 
   @Bean
   public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper) {

@@ -20,6 +20,7 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
 
   private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> validateOrderAction;
   private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> allocateOrderAction;
+  private final Action<BeerOrderStatusEnum, BeerOrderEventEnum> pickupOrderAction;
 
   @Override
   public void configure(StateMachineStateConfigurer<BeerOrderStatusEnum, BeerOrderEventEnum> states) throws Exception {
@@ -37,6 +38,9 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
   @Override
   public void configure(StateMachineTransitionConfigurer<BeerOrderStatusEnum, BeerOrderEventEnum> transitions) throws Exception {
     transitions.withExternal()
+        /*
+         * VALIDATION
+         */
         .source(BeerOrderStatusEnum.NEW).target(BeerOrderStatusEnum.PENDING_VALIDATION)
         .event(BeerOrderEventEnum.START_VALIDATION)
         .action(validateOrderAction)
@@ -49,6 +53,9 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
         .source(BeerOrderStatusEnum.PENDING_VALIDATION).target(BeerOrderStatusEnum.VALIDATION_DENIED)
         .event(BeerOrderEventEnum.DENY_VALIDATION)
 
+        /*
+         * ALLOCATION
+         */
         .and().withExternal()
         .source(BeerOrderStatusEnum.VALIDATION_APPROVED).target(BeerOrderStatusEnum.PENDING_ALLOCATION)
         .event(BeerOrderEventEnum.START_ALLOCATION)
@@ -65,6 +72,14 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
         .and().withExternal()
         .source(BeerOrderStatusEnum.PENDING_ALLOCATION).target(BeerOrderStatusEnum.PENDING_INVENTORY)
         .event(BeerOrderEventEnum.ALLOCATION_NO_INVENTORY)
+
+        /*
+         * PICKUP
+         */
+        .and().withExternal()
+        .source(BeerOrderStatusEnum.ALLOCATION_APPROVED).target(BeerOrderStatusEnum.DELIVERED)
+        .event(BeerOrderEventEnum.PICK_UP_BEER)
+        .action(pickupOrderAction)
     ;
   }
 }
