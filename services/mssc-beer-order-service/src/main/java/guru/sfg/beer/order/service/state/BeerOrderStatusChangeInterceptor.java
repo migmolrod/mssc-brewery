@@ -34,10 +34,16 @@ public class BeerOrderStatusChangeInterceptor extends StateMachineInterceptorAda
                              StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine) {
     log.debug("Pre state change: state {} - message {}", state.getId(), message);
 
-    Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L))).ifPresent(orderId -> {
-      BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
-      order.setOrderStatus(state.getId());
-      beerOrderRepository.save(order);
-    });
+    Optional.ofNullable(message)
+        .flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L)))
+        .ifPresent(orderId -> {
+          BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
+          log.debug("Saving order status for order {}, from {} to {}",
+              order.getId(),
+              order.getOrderStatus(),
+              state.getId());
+          order.setOrderStatus(state.getId());
+          beerOrderRepository.saveAndFlush(order);
+        });
   }
 }

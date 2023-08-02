@@ -36,7 +36,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     beerOrder.setId(null);
     beerOrder.setOrderStatus(BeerOrderStatusEnum.NEW);
 
-    BeerOrder savedBeerOrder = beerOrderRepository.save(beerOrder);
+    BeerOrder savedBeerOrder = beerOrderRepository.saveAndFlush(beerOrder);
     sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.START_VALIDATION);
 
     return savedBeerOrder;
@@ -45,8 +45,9 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
   @Override
   @Transactional
   public void processBeerOrderValidation(UUID beerOrderId, Boolean valid) {
-    beerOrderRepository.findById(beerOrderId).ifPresentOrElse(
-        beerOrder -> {
+    Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+
+    beerOrderOptional.ifPresentOrElse(beerOrder -> {
           if (valid) {
             sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.APPROVE_VALIDATION);
 

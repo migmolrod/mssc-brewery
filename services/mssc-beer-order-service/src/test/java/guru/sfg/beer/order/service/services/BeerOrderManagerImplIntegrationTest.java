@@ -67,7 +67,7 @@ class BeerOrderManagerImplIntegrationTest {
 
   @BeforeEach
   void setUp() {
-    testCustomer = customerRepository.save(
+    testCustomer = customerRepository.saveAndFlush(
         Customer.builder()
             .customerName("Test Customer")
             .build());
@@ -87,10 +87,10 @@ class BeerOrderManagerImplIntegrationTest {
 
     Thread.sleep(5000);
 
-    savedBeerOrder = beerOrderRepository.findById(savedBeerOrder.getId()).get();
+    BeerOrder savedBeerOrder2 = beerOrderRepository.findById(savedBeerOrder.getId()).get();
 
-    assertNotNull(savedBeerOrder);
-    assertEquals(BeerOrderStatusEnum.ALLOCATION_APPROVED, savedBeerOrder.getOrderStatus());
+    assertNotNull(savedBeerOrder2);
+    assertEquals(BeerOrderStatusEnum.ALLOCATION_APPROVED, savedBeerOrder2.getOrderStatus());
   }
 
   public BeerOrder createBeerOrder() {
