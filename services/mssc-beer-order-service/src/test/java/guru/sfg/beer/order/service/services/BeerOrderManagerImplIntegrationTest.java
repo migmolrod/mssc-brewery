@@ -78,15 +78,12 @@ class BeerOrderManagerImplIntegrationTest {
   @Test
   void testNewToAllocated() throws Exception {
     BeerDto beerDto = createBeer();
-
     wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
-
     BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
 
-//    Thread.sleep(5000);
     await().untilAsserted(() -> {
       BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
       assertEquals(BeerOrderStatusEnum.ALLOCATION_APPROVED, foundOrder.getOrderStatus());
@@ -105,6 +102,29 @@ class BeerOrderManagerImplIntegrationTest {
     allocatedBeerOrder.getBeerOrderLines().forEach(line -> {
       assertEquals(line.getOrderQuantity(), line.getQuantityAllocated());
     });
+  }
+
+  @Test
+  void testValidationFailed() throws JsonProcessingException {
+    BeerDto beerDto = createBeer();
+
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+        .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+
+    BeerOrder beerOrder = createBeerOrder();
+    beerOrder.setCustomerRef("fail-validation");
+
+    BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+    await().untilAsserted(() -> {
+      BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+      assertEquals(BeerOrderStatusEnum.VALIDATION_DENIED, foundOrder.getOrderStatus());
+    });
+
+    BeerOrder deniedBeerOrder = beerOrderRepository.findById(savedBeerOrder.getId()).get();
+
+    assertNotNull(deniedBeerOrder);
+    assertEquals(BeerOrderStatusEnum.VALIDATION_DENIED, deniedBeerOrder.getOrderStatus());
   }
 
   @Test
