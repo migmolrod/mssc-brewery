@@ -1,4 +1,6 @@
-# MSSC Shopping
+# MSSC Brewery
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/migmolrod/mssc-brewery/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/migmolrod/mssc-brewery/tree/master)
 
 MSSC (Micro Services with Spring Cloud) project, to follow along Udemy course and serve as a kind of PoC (Proof of
 Concept) for future projects based on microservices.

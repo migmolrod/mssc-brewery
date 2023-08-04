@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum,
+public class BeerOrderStatusChangeInterceptor extends StateMachineInterceptorAdapter<BeerOrderStatusEnum,
     BeerOrderEventEnum> {
 
   private final BeerOrderRepository beerOrderRepository;
@@ -34,10 +34,16 @@ public class BeerOrderStateChangeInterceptor extends StateMachineInterceptorAdap
                              StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine) {
     log.debug("Pre state change: state {} - message {}", state.getId(), message);
 
-    Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L))).ifPresent(orderId -> {
-      BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
-      order.setOrderStatus(state.getId());
-      beerOrderRepository.save(order);
-    });
+    Optional.ofNullable(message)
+        .flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L)))
+        .ifPresent(orderId -> {
+          BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
+          log.info("Transition order status for order {}, from {} to {}",
+              order.getId(),
+              order.getOrderStatus(),
+              state.getId());
+          order.setOrderStatus(state.getId());
+          beerOrderRepository.saveAndFlush(order);
+        });
   }
 }
