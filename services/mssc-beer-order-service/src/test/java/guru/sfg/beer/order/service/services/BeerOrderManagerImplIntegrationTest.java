@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jenspiegsa.wiremockextension.WireMockExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import guru.sfg.beer.order.service.config.JmsConfig;
 import guru.sfg.beer.order.service.domain.BeerOrder;
 import guru.sfg.beer.order.service.domain.BeerOrderLine;
 import guru.sfg.beer.order.service.domain.BeerOrderStatusEnum;
@@ -12,6 +13,7 @@ import guru.sfg.beer.order.service.repositories.BeerOrderRepository;
 import guru.sfg.beer.order.service.repositories.CustomerRepository;
 import guru.sfg.beer.order.service.services.beer.BeerServiceRestTemplateImpl;
 import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.events.AllocateFailureEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jms.core.JmsTemplate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +47,9 @@ class BeerOrderManagerImplIntegrationTest {
 
   @Autowired
   CustomerRepository customerRepository;
+
+  @Autowired
+  JmsTemplate jmsTemplate;
 
   @Autowired
   WireMockServer wireMockServer;
@@ -126,6 +132,30 @@ class BeerOrderManagerImplIntegrationTest {
 
     assertNotNull(deniedBeerOrder);
     assertEquals(BeerOrderStatusEnum.VALIDATION_DENIED, deniedBeerOrder.getOrderStatus());
+  }
+
+  @Test
+  void testAllocationFailure() throws JsonProcessingException {
+    BeerDto beerDto = createBeer();
+
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+        .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
+
+    BeerOrder beerOrder = createBeerOrder();
+    beerOrder.setCustomerRef("fail-allocation");
+
+    BeerOrder savedBeerOrder = beerOrderManager.newBeerOrder(beerOrder);
+
+    await().untilAsserted(() -> {
+      BeerOrder foundOrder = beerOrderRepository.findById(beerOrder.getId()).get();
+      assertEquals(BeerOrderStatusEnum.ALLOCATION_DENIED, foundOrder.getOrderStatus());
+    });
+
+    AllocateFailureEvent allocateFailureEvent =
+        (AllocateFailureEvent) jmsTemplate.receiveAndConvert(JmsConfig.ALLOCATE_FAILURE_QUEUE);
+
+    assertNotNull(allocateFailureEvent);
+    assertEquals(allocateFailureEvent.getBeerOrderId(), savedBeerOrder.getId());
   }
 
   @Test
