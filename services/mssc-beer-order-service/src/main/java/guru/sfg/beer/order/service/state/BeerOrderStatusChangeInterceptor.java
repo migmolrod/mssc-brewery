@@ -13,8 +13,8 @@ import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.support.StateMachineInterceptorAdapter;
 import org.springframework.statemachine.transition.Transition;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,24 +26,33 @@ public class BeerOrderStatusChangeInterceptor extends StateMachineInterceptorAda
 
   private final BeerOrderRepository beerOrderRepository;
 
-  @Transactional
   @Override
+  @Transactional
   public void preStateChange(State<BeerOrderStatusEnum, BeerOrderEventEnum> state,
                              Message<BeerOrderEventEnum> message,
                              Transition<BeerOrderStatusEnum, BeerOrderEventEnum> transition,
                              StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachine) {
-    log.debug("Pre state change: state {} - message {}", state.getId(), message);
-
     Optional.ofNullable(message)
         .flatMap(msg -> Optional.ofNullable((String) message.getHeaders().getOrDefault(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER, -1L)))
-        .ifPresent(orderId -> {
-          BeerOrder order = this.beerOrderRepository.getOne(UUID.fromString(orderId));
-          log.info("Transition order status for order {}, from {} to {}",
-              order.getId(),
-              order.getOrderStatus(),
-              state.getId());
-          order.setOrderStatus(state.getId());
-          beerOrderRepository.saveAndFlush(order);
-        });
+        .ifPresentOrElse(
+            orderId -> {
+              Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(UUID.fromString(orderId));
+
+              beerOrderOptional.ifPresentOrElse(order -> {
+                    log.info("PSC - Transition order status for order {}, from {} to {}",
+                        order.getId(),
+                        order.getOrderStatus(),
+                        state.getId());
+                    order.setOrderStatus(state.getId());
+                    BeerOrder savedBeerOrder = beerOrderRepository.saveAndFlush(order);
+                    log.info("PSC - Saved order {}, status in database {}, status from message {}",
+                        savedBeerOrder.getId(),
+                        savedBeerOrder.getOrderStatus(),
+                        state.getId());
+                  },
+                  () -> log.error("PSC - Order not found. Id {}", orderId)
+              );
+            },
+            () -> log.error("PSC - Error getting header {} from message", BeerOrderManagerImpl.BEER_ORDER_ID_HEADER));
   }
 }

@@ -78,6 +78,7 @@ class BeerOrderManagerImplIntegrationTest {
   @Test
   void testNewToAllocated() throws Exception {
     BeerDto beerDto = createBeer();
+
     wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
