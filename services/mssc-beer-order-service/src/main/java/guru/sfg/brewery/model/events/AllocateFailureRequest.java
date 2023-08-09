@@ -6,10 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ValidateOrderResponse {
+public class AllocateFailureRequest {
   private String beerOrderId;
-  private Boolean isValid;
 }

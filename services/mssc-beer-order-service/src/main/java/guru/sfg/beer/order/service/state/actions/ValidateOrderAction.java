@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
   private final BeerOrderRepository repository;

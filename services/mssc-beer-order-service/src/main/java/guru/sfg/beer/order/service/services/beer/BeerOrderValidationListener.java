@@ -9,6 +9,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +20,6 @@ public class BeerOrderValidationListener {
 
   @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
   public void listen(@Payload ValidateOrderResponse response) {
-    beerOrderManager.processBeerOrderValidation(response.getBeerOrderId(), response.getIsValid());
+    beerOrderManager.processBeerOrderValidation(UUID.fromString(response.getBeerOrderId()), response.getIsValid());
   }
 }

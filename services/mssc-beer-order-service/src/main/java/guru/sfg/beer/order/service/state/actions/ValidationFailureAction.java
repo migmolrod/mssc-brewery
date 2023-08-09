@@ -9,9 +9,9 @@ import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class ValidationFailureAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
   @Override
