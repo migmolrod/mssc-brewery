@@ -30,7 +30,7 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
         .states(EnumSet.allOf(BeerOrderStatusEnum.class))
         .end(BeerOrderStatusEnum.PICKED_UP)
         .end(BeerOrderStatusEnum.DELIVERED)
-        .end(BeerOrderStatusEnum.CANCELED)
+        .end(BeerOrderStatusEnum.CANCELLED)
         .end(BeerOrderStatusEnum.DELIVERY_FAILED)
         .end(BeerOrderStatusEnum.VALIDATION_DENIED)
         .end(BeerOrderStatusEnum.ALLOCATION_DENIED);
@@ -82,6 +82,25 @@ public class BeerOrderStateMachineConfig extends StateMachineConfigurerAdapter<B
         .and().withExternal()
         .source(BeerOrderStatusEnum.ALLOCATION_APPROVED).target(BeerOrderStatusEnum.PICKED_UP)
         .event(BeerOrderEventEnum.PICK_UP)
+
+        /*
+         * CANCEL
+         */
+        .and().withExternal()
+        .source(BeerOrderStatusEnum.PENDING_VALIDATION).target(BeerOrderStatusEnum.CANCELLED)
+        .event(BeerOrderEventEnum.CANCEL_ORDER)
+
+        .and().withExternal()
+        .source(BeerOrderStatusEnum.VALIDATION_APPROVED).target(BeerOrderStatusEnum.CANCELLED)
+        .event(BeerOrderEventEnum.CANCEL_ORDER)
+
+        .and().withExternal()
+        .source(BeerOrderStatusEnum.PENDING_ALLOCATION).target(BeerOrderStatusEnum.CANCELLED)
+        .event(BeerOrderEventEnum.CANCEL_ORDER)
+
+        .and().withExternal()
+        .source(BeerOrderStatusEnum.ALLOCATION_APPROVED).target(BeerOrderStatusEnum.CANCELLED)
+        .event(BeerOrderEventEnum.CANCEL_ORDER) // TODO add action to actually 'deallocate' order
     ;
   }
 }
