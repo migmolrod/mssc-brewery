@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ValidateOrderResponse {
-  private String beerOrderId;
-  private Boolean isValid;
+public class AllocateFailureEvent {
+  private UUID beerOrderId;
 }

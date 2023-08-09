@@ -3,10 +3,8 @@ package guru.sfg.beer.order.service.state.actions;
 import guru.sfg.beer.order.service.config.JmsConfig;
 import guru.sfg.beer.order.service.domain.BeerOrderEventEnum;
 import guru.sfg.beer.order.service.domain.BeerOrderStatusEnum;
-import guru.sfg.beer.order.service.repositories.BeerOrderRepository;
 import guru.sfg.beer.order.service.services.BeerOrderManagerImpl;
-import guru.sfg.beer.order.service.web.mappers.BeerOrderMapper;
-import guru.sfg.brewery.model.events.AllocateOrderRequest;
+import guru.sfg.brewery.model.events.AllocateFailureEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
@@ -19,22 +17,21 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
+public class AllocationFailureAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
-  private final BeerOrderRepository repository;
-  private final BeerOrderMapper mapper;
   private final JmsTemplate jmsTemplate;
 
   @Override
   public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> context) {
     String beerOrderId = (String) context.getMessage().getHeaders().get(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER);
 
-    repository.findById(UUID.fromString(beerOrderId)).ifPresent(beerOrder -> {
-      AllocateOrderRequest request = AllocateOrderRequest.builder()
-          .beerOrder(mapper.beerOrderToDto(beerOrder))
-          .build();
-      jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE, request);
-    });
+    AllocateFailureEvent request = AllocateFailureEvent.builder()
+        .beerOrderId(UUID.fromString(beerOrderId))
+        .build();
+
+    jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_FAILURE_QUEUE, request);
+
+    log.error("Sent Allocation Failure message to queue for order {}", beerOrderId);
   }
 
 }

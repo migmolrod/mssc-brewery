@@ -40,7 +40,7 @@ public class OrderValidationListener {
           JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE,
           ValidateOrderResponse.builder()
               .isValid(isValid)
-              .beerOrderId(request.getBeerOrder().getId())
+              .beerOrderId(request.getBeerOrder().getId().toString())
               .build()
       );
     }
