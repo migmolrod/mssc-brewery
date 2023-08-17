@@ -45,6 +45,12 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
   @Override
   @Transactional
   public void processBeerOrderValidation(UUID beerOrderId, Boolean valid) {
+    try {
+      Thread.sleep(50);
+    } catch (Exception ignored) {
+      return;
+    }
+
     Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
 
     beerOrderOptional.ifPresentOrElse(beerOrder -> {
@@ -59,7 +65,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
             validatedBeerOrder.ifPresentOrElse(order -> {
                   sendBeerOrderEvent(order, BeerOrderEventEnum.START_ALLOCATION);
                   if (!order.equals(beerOrder)) {
-                    log.error("orders does not match.");
+                    log.error("orders do not match.");
                     log.error("{}", order);
                     log.error("{}", beerOrder);
                   }
@@ -117,14 +123,22 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
   @Override
   @Transactional
   public void pickUpOrder(UUID beerOrderId) {
-    Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
-
-    beerOrderOptional.ifPresentOrElse(beerOrder -> {
+    beerOrderRepository.findById(beerOrderId).ifPresentOrElse(beerOrder -> {
           log.info("BOPU - Order found. Id {}", beerOrder.getId());
           sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.PICK_UP);
         },
         () -> log.error("BOPU - Order not found. Id {}", beerOrderId)
     );
+  }
+
+  @Override
+  @Transactional
+  public void cancelOrder(UUID beerOrderId) {
+    beerOrderRepository.findById(beerOrderId).ifPresentOrElse(beerOrder -> {
+          log.info("CO - Order found. Id {}", beerOrder.getId());
+          sendBeerOrderEvent(beerOrder, BeerOrderEventEnum.CANCEL_ORDER);
+        },
+        () -> log.error("CO - Order not found. Id {}", beerOrderId));
   }
 
   private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum event) {

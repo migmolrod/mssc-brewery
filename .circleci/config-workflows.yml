@@ -37,7 +37,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run:
           name: test
-          command: "mvn test -pl services/mssc-beer-order-service"
+          command: "mvn test -pl services/mssc-beer-inventory-service"
   order-service-build:
     docker:
       - image: cimg/openjdk:11.0
@@ -60,7 +60,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run:
           name: test
-          command: "mvn test -pl services/mssc-beer-inventory-service"
+          command: "mvn test -pl services/mssc-beer-order-service"
   beer-service-build:
     docker:
       - image: cimg/openjdk:11.0
