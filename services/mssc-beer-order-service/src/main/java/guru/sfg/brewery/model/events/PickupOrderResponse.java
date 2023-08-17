@@ -1,5 +1,6 @@
 package guru.sfg.brewery.model.events;
 
+import guru.sfg.brewery.model.BeerOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ValidateOrderResponse {
-  private String beerOrderId;
-  private Boolean isValid;
+public class PickupOrderResponse {
+  private BeerOrderDto beerOrder;
+  private Boolean deliveryOk;
 }

@@ -10,9 +10,15 @@
   </parent>
 
   <artifactId>mssc-beer-service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <name>mssc-beer-service</name>
   <description>MSSC Beer Service</description>
+
+  <properties>
+    <service.name>mssc-beer-service</service.name>
+    <version.phase>${version.update.enable}</version.phase>
+    <service.version>${beer-service.version}</service.version>
+  </properties>
 
   <dependencies>
     <dependency>

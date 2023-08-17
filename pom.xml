@@ -30,6 +30,15 @@
     <jaxb.version>2.3.0</jaxb.version>
     <org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
     <awaitility.version>3.1.6</awaitility.version>
+    <!-- Versions -->
+    <beer-service.version>0.2.0-SNAPSHOT</beer-service.version>
+    <beer-inventory-service.version>0.2.0-SNAPSHOT</beer-inventory-service.version>
+    <beer-order-service.version>0.2.0-SNAPSHOT</beer-order-service.version>
+    <!-- Auto-versioning -->
+    <service.name>mssc-brewery</service.name> <!-- must be override by auto-versioned modules -->
+    <service.version>0</service.version> <!-- must be override by auto-versioned modules -->
+    <version.phase>none</version.phase> <!-- must be ${version.update.enable} in auto-versioned modules -->
+    <version.update.enable>generate-sources</version.update.enable>
   </properties>
 
   <licenses>
@@ -101,10 +110,12 @@
 
   <build>
     <plugins>
+      <!-- Maven plugin for Spring Boot Framewor -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      <!-- Auto-clean plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
@@ -118,6 +129,7 @@
           </execution>
         </executions>
       </plugin>
+      <!-- Maven compiler plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -147,6 +159,7 @@
           </compilerArgs>
         </configuration>
       </plugin>
+      <!-- Maven enforcer plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -171,6 +184,26 @@
                   <message>Release builds must not have snapshot dependencies</message>
                 </requireReleaseDeps>
               </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Maven versioning plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <phase>${version.phase}</phase>
+            <goals>
+              <goal>set</goal>
+            </goals>
+            <id>update-version</id>
+            <configuration>
+              <generateBackupPoms>false</generateBackupPoms>
+              <artifactId>${service.name}*</artifactId>
+              <newVersion>${service.version}</newVersion>
             </configuration>
           </execution>
         </executions>

@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrderEventEnum> {
 
   private final BeerOrderRepository repository;
@@ -29,12 +29,14 @@ public class AllocateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
   public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> context) {
     String beerOrderId = (String) context.getMessage().getHeaders().get(BeerOrderManagerImpl.BEER_ORDER_ID_HEADER);
 
-    repository.findById(UUID.fromString(beerOrderId)).ifPresent(beerOrder -> {
-      AllocateOrderRequest request = AllocateOrderRequest.builder()
-          .beerOrder(mapper.beerOrderToDto(beerOrder))
-          .build();
-      jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE, request);
-    });
+    repository.findById(UUID.fromString(beerOrderId)).ifPresentOrElse(beerOrder -> {
+          AllocateOrderRequest request = AllocateOrderRequest.builder()
+              .beerOrder(mapper.beerOrderToDto(beerOrder))
+              .build();
+          jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_QUEUE, request);
+          log.debug("Sent allocation request for order {}", beerOrderId);
+        },
+        () -> log.error("Beer order not found {}", beerOrderId));
   }
 
 }
