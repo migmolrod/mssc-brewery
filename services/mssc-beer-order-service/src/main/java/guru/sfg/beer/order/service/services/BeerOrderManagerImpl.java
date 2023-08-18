@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,6 +27,8 @@ import java.util.UUID;
 public class BeerOrderManagerImpl implements BeerOrderManager {
 
   public static final String BEER_ORDER_ID_HEADER = "ORDER_ID";
+  public static final Integer MAX_AWAIT_FOR_STATUS_RETRIES = 10;
+  public static final Integer AWAIT_DELAY_PER_RETRY = 50;
 
   private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
   private final BeerOrderRepository beerOrderRepository;
@@ -45,11 +49,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
   @Override
   @Transactional
   public void processBeerOrderValidation(UUID beerOrderId, Boolean valid) {
-    try {
-      Thread.sleep(50);
-    } catch (Exception ignored) {
-      return;
-    }
+    awaitForStatus(beerOrderId, BeerOrderStatusEnum.PENDING_VALIDATION);
 
     Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
 
@@ -187,6 +187,35 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     sm.start();
 
     return sm;
+  }
+
+  private void awaitForStatus(UUID beerOrderId, BeerOrderStatusEnum status) {
+    AtomicBoolean found = new AtomicBoolean(false);
+    AtomicInteger loopCount = new AtomicInteger(0);
+
+    while (!found.get()) {
+      log.warn("AFS - current loop count: {}", loopCount.get());
+      if (loopCount.incrementAndGet() > MAX_AWAIT_FOR_STATUS_RETRIES) {
+        found.set(true);
+        log.warn("AFS - Max loop retries exceeded: {}", MAX_AWAIT_FOR_STATUS_RETRIES);
+      }
+
+      beerOrderRepository.findOneByIdAndOrderStatus(beerOrderId, status).ifPresentOrElse(beerOrder -> {
+        found.set(true);
+        log.info("AFS - Order {} found with status {}", beerOrderId, status.name());
+      }, () -> {
+        log.info("AFS - Order {} not found yet", beerOrderId);
+      });
+
+      if (!found.get()) {
+        try {
+          log.info("AFS - Retry {} awaiting for order {} to be in status {}", loopCount.get() + 1, beerOrderId,
+              status.name());
+          //noinspection BusyWait
+          Thread.sleep(AWAIT_DELAY_PER_RETRY);
+        } catch (Exception ignored) {}
+      }
+    }
   }
 
 }
