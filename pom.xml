@@ -62,7 +62,7 @@
 
   <modules>
     <module>services</module>
-    <module>infra</module>
+    <module>cloud/mssc-brewery-gateway</module>
   </modules>
 
   <dependencyManagement>

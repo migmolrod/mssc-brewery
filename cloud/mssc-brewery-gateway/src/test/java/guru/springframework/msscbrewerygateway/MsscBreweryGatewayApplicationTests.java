@@ -1,10 +1,10 @@
-package guru.springframework.msscgateway;
+package guru.springframework.msscbrewerygateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsscGatewayApplicationTests {
+class MsscBreweryGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

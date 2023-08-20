@@ -11,10 +11,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>mssc-services</artifactId>
+  <artifactId>mssc-brewery-services</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>mssc-brewery-services</name>
+  <description>Microservices for Brewery</description>
 
   <modules>
     <module>mssc-beer-inventory-service</module>
