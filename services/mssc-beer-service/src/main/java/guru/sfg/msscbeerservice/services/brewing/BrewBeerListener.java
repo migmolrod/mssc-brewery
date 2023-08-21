@@ -27,12 +27,11 @@ public class BrewBeerListener {
   public void listen(BrewBeerEvent event) {
     BeerDto beerDto = event.getBeerDto();
     Beer beer = beerRepository.getOne(beerDto.getId());
-    beerDto.setQuantityOnHand(beer.getQuantityToBrew());
 
     log.debug("Brewing event caught for beer {} ({}). Min on hand = {} and current inventory = {}. Sending 'add " +
             "inventory' event with quantity to brew {}",
         beer.getBeerName(), beer.getUpc(), beer.getMinOnHand(), beerDto.getQuantityOnHand(),
-        beer.getQuantityToBrew());
+        beerDto.getQuantityToBrew());
     BeerEvent addInventoryEvent = new AddInventoryEvent(beerDto);
 
     jmsTemplate.convertAndSend(JmsConfig.ADD_INVENTORY_QUEUE, addInventoryEvent);
