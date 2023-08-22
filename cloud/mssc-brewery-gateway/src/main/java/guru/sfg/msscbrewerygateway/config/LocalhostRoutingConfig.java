@@ -14,6 +14,10 @@ public class LocalhostRoutingConfig {
   public RouteLocator localhostRouting(RouteLocatorBuilder routeLocatorBuilder) {
     return routeLocatorBuilder.routes()
 
+        .route("inventory-service", r -> r
+            .path("/api/v1/beer/*/inventory")
+            .uri("http://localhost:9033"))
+
         .route("beer-service", r -> r
             .path("/api/v1/beer/**")
             .uri("http://localhost:9031"))
