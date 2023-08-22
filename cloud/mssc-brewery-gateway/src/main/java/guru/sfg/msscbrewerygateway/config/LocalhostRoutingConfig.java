@@ -18,6 +18,10 @@ public class LocalhostRoutingConfig {
             .path("/api/v1/beer/**")
             .uri("http://localhost:9031"))
 
+        .route("order-service", r -> r
+            .path("/api/v1/customers/**")
+            .uri("http://localhost:9032"))
+
         .build();
   }
 
