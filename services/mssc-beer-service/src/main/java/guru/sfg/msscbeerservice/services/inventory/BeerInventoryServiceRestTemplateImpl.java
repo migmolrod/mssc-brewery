@@ -33,7 +33,7 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
   @Override
   public Integer getOnHandInventory(UUID beerId) {
-    log.debug("Calling 'Inventory Service' from 'Beer Service'");
+    log.debug("GOHI - Calling 'Inventory Service' from 'Beer Service'");
 
     String INVENTORY_URI = "/api/v1/beer/{beerId}/inventory";
     ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate.exchange(
@@ -45,9 +45,10 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
         beerId
     );
 
-    return Objects.requireNonNull(responseEntity.getBody())
-        .stream()
-        .mapToInt(BeerInventoryDto::getQuantityOnHand)
-        .sum();
+    List<BeerInventoryDto> result = Objects.requireNonNull(responseEntity.getBody());
+    Integer totalInventory = result.stream().mapToInt(BeerInventoryDto::getQuantityOnHand).sum();
+    log.debug("GOHI - 'Inventory Service' return {} stock for beer {}", totalInventory, beerId);
+
+    return totalInventory;
   }
 }

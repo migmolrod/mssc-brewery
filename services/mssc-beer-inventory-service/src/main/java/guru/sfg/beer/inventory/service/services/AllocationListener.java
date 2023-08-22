@@ -21,16 +21,17 @@ public class AllocationListener {
   @JmsListener(destination = JmsConfig.ALLOCATE_ORDER_QUEUE)
   public void listen(AllocateOrderRequest request) {
     BeerOrderDto beerOrderDto = request.getBeerOrder();
-    AllocateOrderResponse.AllocateOrderResponseBuilder response = AllocateOrderResponse
+    AllocateOrderResponse.AllocateOrderResponseBuilder responseBuilder = AllocateOrderResponse
         .builder()
         .beerOrder(beerOrderDto);
 
     try {
-      response.pendingInventory(!allocationService.allocateOrder(beerOrderDto));
+      responseBuilder.pendingInventory(!allocationService.allocateOrder(beerOrderDto));
+      responseBuilder.allocationError(false);
     } catch (Exception exception) {
-      response.allocationError(true);
       log.error("Exception allocating order {}. Exception: {}", beerOrderDto.getId(), exception.getMessage());
+      responseBuilder.allocationError(true);
     }
-    jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE, response.build());
+    jmsTemplate.convertAndSend(JmsConfig.ALLOCATE_ORDER_RESPONSE_QUEUE, responseBuilder.build());
   }
 }

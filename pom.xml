@@ -34,6 +34,7 @@
     <beer-service.version>0.2.0-SNAPSHOT</beer-service.version>
     <beer-inventory-service.version>0.2.0-SNAPSHOT</beer-inventory-service.version>
     <beer-order-service.version>0.2.0-SNAPSHOT</beer-order-service.version>
+    <gateway.version>0.0.1-SNAPSHOT</gateway.version>
     <!-- Auto-versioning -->
     <service.name>mssc-brewery</service.name> <!-- must be override by auto-versioned modules -->
     <service.version>0</service.version> <!-- must be override by auto-versioned modules -->
@@ -61,6 +62,7 @@
 
   <modules>
     <module>services</module>
+    <module>cloud/mssc-brewery-gateway</module>
   </modules>
 
   <dependencyManagement>
