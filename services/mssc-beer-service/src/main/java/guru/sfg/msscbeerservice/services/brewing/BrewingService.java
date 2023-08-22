@@ -35,7 +35,7 @@ public class BrewingService {
 
       if (beer.getMinOnHand() > inventoryQuantityOnHand) {
         log.debug("CFLI - Beer {} ({}) low stock. Min on hand = {} and current inventory = {}. Sending 'brewing " +
-            "request' event", beer.getBeerName(), beer.getUpc(), beer.getMinOnHand(), inventoryQuantityOnHand);
+            "request' event", beer.getBeerName(), beer.getId(), beer.getMinOnHand(), inventoryQuantityOnHand);
 
         BeerDto beerDto = beerMapper.beerToBeerDto(beer);
         beerDto.setQuantityToBrew(beer.getMinOnHand() - inventoryQuantityOnHand);
@@ -45,7 +45,7 @@ public class BrewingService {
 
         jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE, event);
       } else {
-        log.debug("CFLI - Beer {} ({}) is good on stock", beer.getBeerName(), beer.getUpc());
+        log.debug("CFLI - Beer {} ({}) is good on stock", beer.getBeerName(), beer.getId());
       }
     }
   }
