@@ -13,10 +13,12 @@ public class LocalhostRoutingConfig {
   @Bean
   public RouteLocator localhostRouting(RouteLocatorBuilder routeLocatorBuilder) {
     return routeLocatorBuilder.routes()
-        .route(r -> r
+
+        .route("beer-service", r -> r
             .path("/api/v1/beer/**")
             .uri("http://localhost:9031"))
+
         .build();
   }
-  
+
 }
