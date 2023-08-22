@@ -282,7 +282,7 @@ class BeerOrderManagerImplIntegrationTest {
   }
 
   private BeerDto createBeer() {
-    return BeerDto.builder().id(beerId).upc(beerUpc).build();
+    return BeerDto.builder().id(beerId).upc(beerUpc).beerStyle("ALE").build();
   }
 
   public BeerOrder createBeerOrder() {
