@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BeerInventoryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="InventoryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="local" />
     <module name="mssc-beer-inventory-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="guru.sfg.beer.inventory.service.BeerInventoryApplication" />
