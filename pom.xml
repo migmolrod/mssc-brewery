@@ -39,8 +39,8 @@
     <beer-service.version>0.3.0-SNAPSHOT</beer-service.version>
     <beer-inventory-service.version>0.3.0-SNAPSHOT</beer-inventory-service.version>
     <beer-order-service.version>0.3.0-SNAPSHOT</beer-order-service.version>
-    <gateway.version>0.0.1-SNAPSHOT</gateway.version>
-    <service-registry.version>0.0.1-SNAPSHOT</service-registry.version>
+    <gateway.version>0.1.0-SNAPSHOT</gateway.version>
+    <service-registry.version>0.1.0-SNAPSHOT</service-registry.version>
 
     <!-- Auto-versioning -->
     <service.name>mssc-brewery</service.name> <!-- must be override by auto-versioned modules -->

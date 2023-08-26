@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>mssc-service-registry</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>mssc-service-registry</name>
 	<description>Service registry</description>
 
