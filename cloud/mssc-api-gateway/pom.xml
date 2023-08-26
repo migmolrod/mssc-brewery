@@ -15,6 +15,12 @@
 	<name>mssc-api-gateway</name>
 	<description>API gateway</description>
 
+	<properties>
+		<service.name>mssc-api-gateway</service.name>
+		<version.phase>${version.update.enable}</version.phase>
+		<service.version>${gateway.version}</service.version>
+	</properties>
+
 	<dependencies>
 		<!-- gateway -->
 		<dependency>
