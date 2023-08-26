@@ -4,6 +4,7 @@ import guru.sfg.msscbeerservice.services.inventory.model.BeerInventoryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +15,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Profile("!local-discovery")
 @Slf4j
 @ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false)
 @Component
-public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
+public class InventoryServiceRestTemplateImpl implements InventoryService {
 
+  // REFACTOR - move this to abstract class with constants or to configuration
+  public final static String INVENTORY_URI = "/api/v1/beer/{beerId}/inventory";
   private final RestTemplate restTemplate;
 
   private String beerInventoryServiceHost;
@@ -27,15 +31,14 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
     this.beerInventoryServiceHost = beerInventoryServiceHost;
   }
 
-  public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
+  public InventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
     this.restTemplate = restTemplateBuilder.build();
   }
 
   @Override
   public Integer getOnHandInventory(UUID beerId) {
-    log.debug("Calling 'Inventory Service' from 'Beer Service'");
+    log.debug("GOHI - Calling 'Inventory Service' from 'Beer Service' with RestTemplate");
 
-    String INVENTORY_URI = "/api/v1/beer/{beerId}/inventory";
     ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate.exchange(
         beerInventoryServiceHost + INVENTORY_URI,
         HttpMethod.GET,
@@ -45,9 +48,10 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
         beerId
     );
 
-    return Objects.requireNonNull(responseEntity.getBody())
-        .stream()
-        .mapToInt(BeerInventoryDto::getQuantityOnHand)
-        .sum();
+    List<BeerInventoryDto> result = Objects.requireNonNull(responseEntity.getBody());
+    Integer totalInventory = result.stream().mapToInt(BeerInventoryDto::getQuantityOnHand).sum();
+    log.debug("GOHI - 'Inventory Service' return {} stock for beer {}", totalInventory, beerId);
+
+    return totalInventory;
   }
 }

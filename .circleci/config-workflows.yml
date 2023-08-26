@@ -13,6 +13,9 @@ parameters:
   run-beer-srv-workflow:
     type: boolean
     default: false
+  service-dependencies-changed:
+    type: boolean
+    default: true
 
 jobs:
   inventory-service-build:
@@ -87,19 +90,23 @@ jobs:
 
 workflows:
   inventory-service:
-    when: << pipeline.parameters.run-inventory-srv-workflow >>
+    when:
+      or:
+        - << pipeline.parameters.service-dependencies-changed >>
+        - << pipeline.parameters.run-inventory-srv-workflow >>
     jobs:
       - inventory-service-build
   order-service:
-    when: << pipeline.parameters.run-order-srv-workflow >>
+    when:
+      or:
+        - << pipeline.parameters.service-dependencies-changed >>
+        - << pipeline.parameters.run-inventory-srv-workflow >>
     jobs:
       - order-service-build
   beer-service:
-    when: << pipeline.parameters.run-beer-srv-workflow >>
+    when:
+      or:
+        - << pipeline.parameters.service-dependencies-changed >>
+        - << pipeline.parameters.run-inventory-srv-workflow >>
     jobs:
       - beer-service-build
-
-#    when:
-#      or:
-#        - << pipeline.parameters.library-modified >>
-#        - << pipeline.parameters.run-product-service-workflow >>

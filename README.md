@@ -17,6 +17,13 @@ Concept) for future projects based on microservices.
 | [mssc-beer-order-service](./services/mssc-beer-order-service)         | 9032 |
 | [mssc-beer-inventory-service](./services/mssc-beer-inventory-service) | 9033 |
 
+## Infrastructure
+
+| Service name                                         | Port |
+|------------------------------------------------------|------|
+| [mssc-brewery-gateway](./cloud/mssc-brewery-gateway) | 9090 |
+
+
 ## Database
 
 Run `docker run --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8` to use a local MySQL database.
