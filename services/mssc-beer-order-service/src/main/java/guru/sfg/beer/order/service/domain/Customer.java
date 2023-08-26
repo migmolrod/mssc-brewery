@@ -16,15 +16,13 @@
  */
 package guru.sfg.beer.order.service.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
@@ -35,8 +33,30 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Customer extends BaseEntity {
+@Builder
+public class Customer {
+
+  @Id
+  @GeneratedValue(generator = "UUID")
+  @GenericGenerator(
+      name = "UUID",
+      strategy = "org.hibernate.id.UUIDGenerator"
+  )
+  @Type(type = "org.hibernate.type.UUIDCharType")
+  @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+  private UUID id;
+
+  @Version
+  private Long version;
+
+  @CreationTimestamp
+  @Column(updatable = false)
+  private Timestamp createdDate;
+
+  @UpdateTimestamp
+  private Timestamp lastModifiedDate;
 
   private String customerName;
 
@@ -46,14 +66,5 @@ public class Customer extends BaseEntity {
 
   @OneToMany(mappedBy = "customer")
   private Set<BeerOrder> beerOrders;
-
-  @Builder
-  public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
-                  UUID apiKey, Set<BeerOrder> beerOrders) {
-    super(id, version, createdDate, lastModifiedDate);
-    this.customerName = customerName;
-    this.apiKey = apiKey;
-    this.beerOrders = beerOrders;
-  }
 
 }

@@ -32,9 +32,13 @@ public class BeerOrderDto {
   private OffsetDateTime lastModifiedDate = null;
 
   private UUID customerId;
+
   private String customerRef;
+
   private List<BeerOrderLineDto> beerOrderLines;
+
   private String orderStatus;
+
   private String orderStatusCallbackUrl;
 
 }
