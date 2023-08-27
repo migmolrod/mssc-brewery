@@ -2,26 +2,31 @@
 
 ### Build status
 
-| Develop | [![CircleCI](https://dl.circleci.com/status-badge/img/gh/migmolrod/mssc-brewery/tree/develop.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/migmolrod/mssc-brewery/tree/develop) |
-|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Master  | [![CircleCI](https://dl.circleci.com/status-badge/img/gh/migmolrod/mssc-brewery/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/migmolrod/mssc-brewery/tree/master)   |
-
 MSSC (Micro Services with Spring Cloud) project, to follow along Udemy course and serve as a kind of PoC (Proof of
 Concept) for future projects based on microservices.
 
 ## Services
 
-| Service name                                                          | Port |
-|-----------------------------------------------------------------------|------|
-| [mssc-beer-service](./services/mssc-beer-service)                     | 9031 |
-| [mssc-beer-order-service](./services/mssc-beer-order-service)         | 9032 |
-| [mssc-beer-inventory-service](./services/mssc-beer-inventory-service) | 9033 |
+| Service name                                                                            | Port |
+|-----------------------------------------------------------------------------------------|------|
+| [mssc-beer-service](./services/mssc-beer-service)                                       | 9031 |
+| [mssc-beer-order-service](./services/mssc-beer-order-service)                           | 9032 |
+| [mssc-beer-inventory-service](./services/mssc-beer-inventory-service)                   | 9033 |
+
+
+
+## Failover services
+
+| Service name                                                                            | Port |
+|-----------------------------------------------------------------------------------------|------|
+| [mssc-beer-inventory-service-failover](./services/mssc-beer-inventory-service-failover) | 9063 |
 
 ## Infrastructure
 
-| Service name                                         | Port |
-|------------------------------------------------------|------|
-| [mssc-brewery-gateway](./cloud/mssc-brewery-gateway) | 9090 |
+| Service name                                           | Port |
+|--------------------------------------------------------|------|
+| [mssc-service-registry](./cloud/mssc-service-registry) | 8761 |
+| [mssc-brewery-gateway](./cloud/mssc-api-gateway)       | 9090 |
 
 
 ## Database
