@@ -5,7 +5,7 @@
 MSSC (Micro Services with Spring Cloud) project, to follow along Udemy course and serve as a kind of PoC (Proof of
 Concept) for future projects based on microservices.
 
-## Services
+## Microservices
 
 | Service name                                                                            | Port |
 |-----------------------------------------------------------------------------------------|------|
@@ -17,9 +17,9 @@ Concept) for future projects based on microservices.
 
 ## Failover services
 
-| Service name                                                                            | Port |
-|-----------------------------------------------------------------------------------------|------|
-| [mssc-beer-inventory-service-failover](./services/mssc-beer-inventory-service-failover) | 9063 |
+| Service name                                                            | Port |
+|-------------------------------------------------------------------------|------|
+| [mssc-beer-inventory-failover](./services/mssc-beer-inventory-failover) | 9063 |
 
 ## Infrastructure
 

@@ -7,7 +7,7 @@
     <file url="file://$PROJECT_DIR$/cloud/mssc-service-registry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service-failover/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-failover/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-order-service/src/main/java" charset="UTF-8" />
