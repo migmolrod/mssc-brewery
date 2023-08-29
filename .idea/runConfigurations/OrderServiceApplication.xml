@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" value="local" />
+    <option name="ACTIVE_PROFILES" value="local,local-discovery" />
     <module name="mssc-beer-order-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="guru.sfg.beer.order.service.BeerOrderServiceApplication" />
     <method v="2">

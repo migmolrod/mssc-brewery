@@ -22,7 +22,8 @@ import java.util.UUID;
 public class InventoryServiceRestTemplateImpl implements InventoryService {
 
   // REFACTOR - move this to abstract class with constants or to configuration
-  public final static String INVENTORY_URI = "/api/v1/beer/{beerId}/inventory";
+  public final static String INVENTORY_SERVICE_URI = "/api/v1/beer/{beerId}/inventory";
+  public final static String INVENTORY_FAILOVER_URI = "/api/v1/inventory-failover";
   private final RestTemplate restTemplate;
 
   private String beerInventoryServiceHost;
@@ -40,7 +41,7 @@ public class InventoryServiceRestTemplateImpl implements InventoryService {
     log.debug("GOHI - Calling 'Inventory Service' from 'Beer Service' with RestTemplate");
 
     ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate.exchange(
-        beerInventoryServiceHost + INVENTORY_URI,
+        beerInventoryServiceHost + INVENTORY_SERVICE_URI,
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<>() {

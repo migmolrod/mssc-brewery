@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "inventory-service")
+@FeignClient(name = "inventory-service", fallback = InventoryFailoverFeignClientImpl.class)
 public interface InventoryServiceFeignClient {
 
-  @GetMapping(value = InventoryServiceRestTemplateImpl.INVENTORY_URI)
+  @GetMapping(value = InventoryServiceRestTemplateImpl.INVENTORY_SERVICE_URI)
   ResponseEntity<List<BeerInventoryDto>> getOnHandInventory(@PathVariable UUID beerId);
 
 }

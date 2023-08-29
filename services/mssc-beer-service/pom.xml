@@ -22,11 +22,16 @@
   </properties>
 
   <dependencies>
-    <!-- Service discovery -->
+    <!-- service discovery -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
-      <version>2.2.9.RELEASE</version>
+      <version>3.0.8</version>
+    </dependency>
+    <!-- circuit breaker -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
     </dependency>
 
     <!-- jaxb -->

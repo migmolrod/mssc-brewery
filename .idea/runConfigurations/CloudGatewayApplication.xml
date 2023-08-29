@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CloudGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local-discovery" />
+    <module name="mssc-api-gateway" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="guru.sfg.msscbrewerygateway.MsscBreweryGatewayApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
