@@ -15,26 +15,28 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>mssc-brewery-cloud</name>
-  <description>Cloud services (gateway, registry, etc)</description>
+  <description>Cloud services (gateway, registry, config, etc)</description>
 
   <modules>
     <module>mssc-api-gateway</module>
+    <module>mssc-config-server</module>
     <module>mssc-service-registry</module>
   </modules>
 
   <dependencies>
+    <!-- actuator -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <!-- devtools -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
-
-    <!-- TESTING -->
+    <!-- testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

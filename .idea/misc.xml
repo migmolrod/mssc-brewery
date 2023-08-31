@@ -17,6 +17,7 @@
         <option value="$PROJECT_DIR$/services/producer/pom.xml" />
         <option value="$PROJECT_DIR$/services/producer-client/pom.xml" />
         <option value="$PROJECT_DIR$/services/mssc-task-service/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud/mssc-config-server/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
