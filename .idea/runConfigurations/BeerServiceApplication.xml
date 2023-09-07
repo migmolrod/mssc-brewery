@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="BeerServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <option name="ACTIVE_PROFILES" value="local,local-discovery" />
+    <option name="ACTIVE_PROFILES" value="local-mysql" />
     <module name="mssc-beer-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="guru.sfg.msscbeerservice.BeerServiceApplication" />
     <method v="2">
