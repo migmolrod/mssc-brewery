@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        service-id: config-server
+      uri: http://localhost:9091
+    discovery:
+      enabled: true
