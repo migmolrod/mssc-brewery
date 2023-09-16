@@ -13,8 +13,6 @@ Concept) for future projects based on microservices.
 | [mssc-beer-order-service](./services/mssc-beer-order-service)                           | 9032 |
 | [mssc-beer-inventory-service](./services/mssc-beer-inventory-service)                   | 9033 |
 
-
-
 ## Failover services
 
 | Service name                                                            | Port |
@@ -27,12 +25,23 @@ Concept) for future projects based on microservices.
 |--------------------------------------------------------|------|
 | [mssc-service-registry](./cloud/mssc-service-registry) | 8761 |
 | [mssc-brewery-gateway](./cloud/mssc-api-gateway)       | 9090 |
+| [mssc-config-server](./cloud/mssc-config-server)       | 9091 |
 
+## External services
 
-## Database
+| Service type        | Vendor           | Port         | Development credentials |
+|---------------------|------------------|--------------|-------------------------|
+| Database            | MySQL            | 3306         | root/1234               |
+| Messaging           | ActiveMQ Artemis | 8161 (61616) | admin/admin             |
+| Distributed tracing | Zipkin           |              |                         |
+| Monitoring          | Prometheus       |              |                         |
+|                     |                  |              |                         |
+|                     |                  |              |                         |
+
+## Database (MySQL)
 
 Run `docker run --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8` to use a local MySQL database.
 
-## Message
+## Messaging (ActiveMQ Artemis)
 
 Run `docker run -d --name activemq-artemis -p 61616:61616 -p 8161:8161 -e ARTEMIS_USER=admin -e ARTEMIS_PASSWORD=admin makyo/activemq-artemis` to use a local ActiveMQ Artemis instance.

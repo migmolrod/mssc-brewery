@@ -1,0 +1,19 @@
+logging:
+  level:
+    guru: debug
+server:
+  port: 9032
+sfg:
+  brewery:
+    beer_service_host: http://localhost:9031
+spring:
+  application:
+    name: order-service
+  artemis:
+    password: admin
+    user: admin
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL
+  sql:
+    init:
+      mode: embedded

@@ -34,14 +34,19 @@
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <awaitility.version>3.1.6</awaitility.version>
     <mysql.version>8.0.33</mysql.version>
+    <guava.version>14.0.1</guava.version>
+    <servo-core.version>0.12.21</servo-core.version>
 
     <!-- Versions -->
+    <!-- services -->
     <beer-service.version>0.3.0-SNAPSHOT</beer-service.version>
     <beer-inventory-service.version>0.3.0-SNAPSHOT</beer-inventory-service.version>
     <beer-order-service.version>0.3.0-SNAPSHOT</beer-order-service.version>
+    <!-- cloud -->
     <gateway.version>0.1.0-SNAPSHOT</gateway.version>
     <service-registry.version>0.1.0-SNAPSHOT</service-registry.version>
-
+    <config-server.version>0.1.0-SNAPSHOT</config-server.version>
+    <!-- failover -->
     <beer-inventory-failover.version>0.3.0-SNAPSHOT</beer-inventory-failover.version>
 
     <!-- Auto-versioning -->

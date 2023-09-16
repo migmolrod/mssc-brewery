@@ -1,0 +1,16 @@
+feign:
+  circuitbreaker:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include[]: health,circuitbreakers
+  health:
+    circuitbreakers:
+      enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventory-failover:
+        registerHealthIndicator: true
