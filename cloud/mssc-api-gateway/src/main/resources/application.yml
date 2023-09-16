@@ -1,0 +1,19 @@
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
+server:
+  port: 9090
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: true
+      httpserver:
+        wiretap: true
+  zipkin:
+    baseUrl: http://localhost:9411/
