@@ -1,0 +1,10 @@
+logging:
+  level:
+    guru: debug
+server:
+  port: 9063
+spring:
+  application:
+    name: inventory-failover
+  zipkin:
+    enabled: false

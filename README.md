@@ -33,15 +33,19 @@ Concept) for future projects based on microservices.
 |---------------------|------------------|--------------|-------------------------|
 | Database            | MySQL            | 3306         | root/1234               |
 | Messaging           | ActiveMQ Artemis | 8161 (61616) | admin/admin             |
-| Distributed tracing | Zipkin           |              |                         |
+| Distributed tracing | Zipkin           | 9411         |                         |
 | Monitoring          | Prometheus       |              |                         |
 |                     |                  |              |                         |
 |                     |                  |              |                         |
 
 ## Database (MySQL)
 
-Run `docker run --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 -d mysql:8` to use a local MySQL database.
+Run `docker run -d --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 mysql:8` to use a local MySQL database.
 
 ## Messaging (ActiveMQ Artemis)
 
 Run `docker run -d --name activemq-artemis -p 61616:61616 -p 8161:8161 -e ARTEMIS_USER=admin -e ARTEMIS_PASSWORD=admin makyo/activemq-artemis` to use a local ActiveMQ Artemis instance.
+
+## Distributed tracing (Zipkin)
+
+Run `docker run -d --name mssc-brewery-logging -p 9411:9411 openzipkin/zipkin` to use a local Zipkin server.
