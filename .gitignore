@@ -40,3 +40,7 @@ build/
 
 ### Custom ###
 monoliths
+
+### Temporal and local files ###
+## Logs ##
+/logs
