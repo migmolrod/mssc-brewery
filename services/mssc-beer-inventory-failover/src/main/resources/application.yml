@@ -6,3 +6,5 @@ server:
 spring:
   application:
     name: inventory-failover
+  zipkin:
+    enabled: false
