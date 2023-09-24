@@ -37,23 +37,27 @@
     <guava.version>14.0.1</guava.version>
     <servo-core.version>0.12.21</servo-core.version>
 
-    <!-- Versions -->
-    <!-- services -->
-    <beer-service.version>0.3.0-SNAPSHOT</beer-service.version>
-    <beer-inventory-service.version>0.3.0-SNAPSHOT</beer-inventory-service.version>
-    <beer-order-service.version>0.3.0-SNAPSHOT</beer-order-service.version>
+    <!-- Internal versions -->
+    <!-- microservices -->
+    <beer-service.version>0.4.0-SNAPSHOT</beer-service.version>
+    <beer-inventory-service.version>0.4.0-SNAPSHOT</beer-inventory-service.version>
+    <beer-order-service.version>0.4.0-SNAPSHOT</beer-order-service.version>
     <!-- cloud -->
-    <gateway.version>0.1.0-SNAPSHOT</gateway.version>
-    <service-registry.version>0.1.0-SNAPSHOT</service-registry.version>
-    <config-server.version>0.1.0-SNAPSHOT</config-server.version>
+    <gateway.version>0.2.0-SNAPSHOT</gateway.version>
+    <service-registry.version>0.2.0-SNAPSHOT</service-registry.version>
+    <config-server.version>0.2.0-SNAPSHOT</config-server.version>
     <!-- failover -->
-    <beer-inventory-failover.version>0.3.0-SNAPSHOT</beer-inventory-failover.version>
+    <beer-inventory-failover.version>0.4.0-SNAPSHOT</beer-inventory-failover.version>
 
     <!-- Auto-versioning -->
     <service.name>mssc-brewery</service.name> <!-- must be override by auto-versioned modules -->
     <service.version>0</service.version> <!-- must be override by auto-versioned modules -->
     <version.phase>none</version.phase> <!-- must be ${version.update.enable} in auto-versioned modules -->
     <version.update.enable>generate-sources</version.update.enable>
+
+    <!-- Docker -->
+    <docker.image.prefix>migmolrod</docker.image.prefix>
+    <docker.image.name>${project.artifactId}</docker.image.name>
   </properties>
 
   <licenses>
@@ -142,6 +146,12 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <layers>
+            <enabled>true</enabled>
+            <includeLayerTools>true</includeLayerTools>
+          </layers>
+        </configuration>
       </plugin>
       <!-- Auto-clean plugin -->
       <plugin>
@@ -235,6 +245,31 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <!-- Docker plugin -->
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.43.4</version>
+        <configuration>
+          <pushRegistry>cloud.canister.io:5000</pushRegistry>
+          <images>
+            <image>
+              <name>${docker.image.prefix}/${docker.image.name}</name>
+              <alias>${project.artifactId}</alias>
+              <build>
+                <assembly>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <dockerFile>Dockerfile</dockerFile>
+                <tags>
+                  <tag>latest</tag>
+                  <tag>${project.version}</tag>
+                </tags>
+              </build>
+            </image>
+          </images>
+        </configuration>
       </plugin>
     </plugins>
   </build>
