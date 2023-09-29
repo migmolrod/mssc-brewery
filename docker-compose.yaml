@@ -1,7 +1,4 @@
 # REFACTOR
-# - COPY multiple: https://stackoverflow.com/questions/30256386/how-to-copy-multiple-files-in-one-layer-using-a-dockerfile
-# - create .env file with reusable usernames, passwords and hosts (needed for next step, check ↓)
-# - mysql healthcheck: https://stackoverflow.com/questions/48570648/docker-compose-healthcheck-mysql
 # - add docker-compose yaml override files for environments (local-debug, production...)
 # - add init.sql file to initialize database (only in override)
 # - add volumes?
@@ -37,7 +34,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
 
   # Cloud
   service-registry:
