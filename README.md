@@ -29,22 +29,22 @@ Concept) for future projects based on microservices.
 
 ## External services
 
-| Service type        | Vendor           | Port         | Development credentials |
-|---------------------|------------------|--------------|-------------------------|
-| Database            | MySQL            | 3306         | root/1234               |
-| Messaging           | ActiveMQ Artemis | 8161 (61616) | admin/admin             |
-| Distributed tracing | Zipkin           | 9411         |                         |
-| Monitoring          | Prometheus       |              |                         |
-|                     |                  |              |                         |
-|                     |                  |              |                         |
+| Service type         | Vendor           | Port         | Development credentials |
+|----------------------|------------------|--------------|-------------------------|
+| Database             | MySQL            | 3306         | root/1234               |
+| Messaging            | ActiveMQ Artemis | 8161 (61616) | admin/admin             |
+| Distributed tracing  | Zipkin           | 9411         |                         |
+| Monitoring           | Prometheus       |              |                         |
+| Consolidated tracing | ELK              |              |                         |
+|                      |                  |              |                         |
 
 ## Database (MySQL)
 
-Run `docker run -d --name mssc-brewery-database -e MYSQL_ROOT_PASSWORD=1234 mysql:8` to use a local MySQL database.
+Run `docker run -d --name mssc-brewery-database -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 mysql:8` to use a local MySQL database.
 
 ## Messaging (ActiveMQ Artemis)
 
-Run `docker run -d --name activemq-artemis -p 61616:61616 -p 8161:8161 -e ARTEMIS_USER=admin -e ARTEMIS_PASSWORD=admin makyo/activemq-artemis` to use a local ActiveMQ Artemis instance.
+Run `docker run -d --name mssc-brewery-queue -p 61616:61616 -p 8161:8161 -e ARTEMIS_USER=admin -e ARTEMIS_PASSWORD=admin makyo/activemq-artemis` to use a local ActiveMQ Artemis instance.
 
 ## Distributed tracing (Zipkin)
 

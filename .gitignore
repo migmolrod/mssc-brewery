@@ -44,3 +44,6 @@ monoliths
 ### Temporal and local files ###
 ## Logs ##
 /**/logs
+
+## Secrets ##
+.env
