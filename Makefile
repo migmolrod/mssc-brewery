@@ -10,10 +10,10 @@ build:
 
 	mvn package -DskipTests -pl services/mssc-beer-inventory-service
 	mvn docker:build -DskipTests -pl services/mssc-beer-inventory-service
-#
-#	mvn package -DskipTests -pl services/mssc-beer-service
-#	mvn docker:build -DskipTests -pl services/mssc-beer-service
-#
+
+	mvn package -DskipTests -pl services/mssc-beer-service
+	mvn docker:build -DskipTests -pl services/mssc-beer-service
+
 #	mvn package -DskipTests -pl services/mssc-beer-order-service
 #	mvn docker:build -DskipTests -pl services/mssc-beer-order-service
 

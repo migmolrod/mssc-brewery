@@ -15,6 +15,7 @@ public class LoadBalancerRoutingConfig {
 
   @Bean
   public RouteLocator loadBalancerRouting(RouteLocatorBuilder routeLocatorBuilder) {
+
     return routeLocatorBuilder.routes()
 
         // EXAMPLE WITH CIRCUITBREAKER (FAILOVER) */

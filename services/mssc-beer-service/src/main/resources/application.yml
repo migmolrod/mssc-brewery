@@ -10,8 +10,9 @@ spring:
   application:
     name: beer-service
   artemis:
-    password: admin
-    user: admin
+    broker-url: ${SPRING_ARTEMIS_HOST:tcp://localhost:61616}
+    password: ${ARTEMIS_USER:admin}
+    user: ${ARTEMIS_PASSWORD:admin}
   cache:
     jcache:
       config: classpath:ehcache.xml

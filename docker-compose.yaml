@@ -60,6 +60,15 @@ services:
       retries: 4
     ports:
       - "9090:9090"
+    depends_on:
+      service-registry:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      beer:
+        condition: service_healthy
+      inventory:
+        condition: service_healthy
 
   config-server:
     image: migmolrod/mssc-config-server
@@ -71,7 +80,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 4
-      start_period: 0s
     ports:
       - "9091:9091"
     depends_on:
@@ -93,7 +101,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 4
-      start_period: 0s
     ports:
       - "9033:9033"
     depends_on:
@@ -106,29 +113,34 @@ services:
       config-server:
         condition: service_healthy
 
-#  beer:
-#    image: migmolrod/mssc-beer-service
-#    environment:
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
-#      - SPRING_PROFILES_ACTIVE=local-discovery,local
-#      - SPRING_ZIPKIN_BASEURL=${SPRING_ZIPKIN_BASEURL}
-#      - SPRING_ARTEMIS_HOST=${SPRING_ARTEMIS_HOST}
-#      - SPRING_CLOUD_CONFIG_URI=${SPRING_CLOUD_CONFIG_URI}
-#      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL_BEER}
-#    ports:
-#      - "9031:9031"
-#    depends_on:
-#      mysql:
-#        condition: service_healthy
-#      jms:
-#        condition: service_started
-#      service-registry:
-#        condition: service_healthy
-#      config-server:
-#        condition: service_healthy
-#      inventory:
-#        condition: service_healthy
-#
+  beer:
+    image: migmolrod/mssc-beer-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+      - SPRING_PROFILES_ACTIVE=local-discovery,local
+      - SPRING_ZIPKIN_BASEURL=${SPRING_ZIPKIN_BASEURL}
+      - SPRING_ARTEMIS_HOST=${SPRING_ARTEMIS_HOST}
+      - SPRING_CLOUD_CONFIG_URI=${SPRING_CLOUD_CONFIG_URI}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL_BEER}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fs http://localhost:9031/actuator/health | grep 'UP' || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 4
+    ports:
+      - "9031:9031"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      jms:
+        condition: service_started
+      service-registry:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      inventory:
+        condition: service_healthy
+
 #  order:
 #    image: migmolrod/mssc-beer-order-service
 #    environment:
