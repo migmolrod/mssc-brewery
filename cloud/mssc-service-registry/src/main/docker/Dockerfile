@@ -7,15 +7,16 @@ FROM openjdk:11-jre-slim
 LABEL PROJECT_NAME=${project.artifactId} \
     PROJECT=${project.id}
 
+RUN apt update \
+    && apt install -y curl
+
 EXPOSE 8080
 
 WORKDIR application
-COPY --from=builder application/dependencies/ ./
-RUN true
-COPY --from=builder application/spring-boot-loader/ ./
-RUN true
-COPY --from=builder application/snapshot-dependencies/ ./
-RUN true
-COPY --from=builder application/application/ ./
-RUN true
+COPY --from=builder \
+    application/dependencies/ \
+    application/spring-boot-loader/ \
+    application/snapshot-dependencies/ \
+    application/application/ \
+    ./
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "org.springframework.boot.loader.JarLauncher"]

@@ -3,6 +3,6 @@ spring:
     config:
       discovery:
         service-id: config-server
-      uri: http://localhost:9091
+      uri: ${SPRING_CLOUD_CONFIG_URI:http://localhost:9091}
     discovery:
       enabled: true

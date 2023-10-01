@@ -14,7 +14,7 @@
 
   <groupId>guru.springframework</groupId>
   <artifactId>mssc-brewery-parent</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>MSSC Brewery</name>
 
@@ -39,15 +39,15 @@
 
     <!-- Internal versions -->
     <!-- microservices -->
-    <beer-service.version>0.4.0-SNAPSHOT</beer-service.version>
-    <beer-inventory-service.version>0.4.0-SNAPSHOT</beer-inventory-service.version>
-    <beer-order-service.version>0.4.0-SNAPSHOT</beer-order-service.version>
+    <beer-service.version>0.4.1-SNAPSHOT</beer-service.version>
+    <beer-inventory-service.version>0.4.1-SNAPSHOT</beer-inventory-service.version>
+    <beer-order-service.version>0.4.1-SNAPSHOT</beer-order-service.version>
     <!-- cloud -->
-    <gateway.version>0.2.0-SNAPSHOT</gateway.version>
-    <service-registry.version>0.2.0-SNAPSHOT</service-registry.version>
-    <config-server.version>0.2.0-SNAPSHOT</config-server.version>
+    <gateway.version>0.2.1-SNAPSHOT</gateway.version>
+    <service-registry.version>0.2.1-SNAPSHOT</service-registry.version>
+    <config-server.version>0.2.1-SNAPSHOT</config-server.version>
     <!-- failover -->
-    <beer-inventory-failover.version>0.4.0-SNAPSHOT</beer-inventory-failover.version>
+    <beer-inventory-failover.version>0.4.1-SNAPSHOT</beer-inventory-failover.version>
 
     <!-- Auto-versioning -->
     <service.name>mssc-brewery</service.name> <!-- must be override by auto-versioned modules -->
@@ -252,7 +252,6 @@
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.43.4</version>
         <configuration>
-          <pushRegistry>cloud.canister.io:5000</pushRegistry>
           <images>
             <image>
               <name>${docker.image.prefix}/${docker.image.name}</name>
