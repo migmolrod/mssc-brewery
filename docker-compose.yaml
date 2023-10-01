@@ -65,10 +65,6 @@ services:
         condition: service_healthy
       config-server:
         condition: service_healthy
-      beer:
-        condition: service_healthy
-      inventory:
-        condition: service_healthy
 
   config-server:
     image: migmolrod/mssc-config-server
