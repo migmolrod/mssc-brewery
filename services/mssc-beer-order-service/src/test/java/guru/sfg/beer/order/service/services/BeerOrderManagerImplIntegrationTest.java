@@ -86,7 +86,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testNewToAllocated() throws Exception {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -116,7 +116,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testValidationFailed() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -139,7 +139,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testAllocationFailure() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -163,7 +163,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testNewToPickedUp() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -192,7 +192,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testValidationPendingToCancelled() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -222,7 +222,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testAllocationPendingToCancelled() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();
@@ -252,7 +252,7 @@ class BeerOrderManagerImplIntegrationTest {
   void testAllocatedToCancelled() throws JsonProcessingException {
     BeerDto beerDto = createBeer();
 
-    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC + "/" + beerUpc)
+    wireMockServer.stubFor(get("/" + BeerServiceRestTemplateImpl.URI_BEER_BY_UPC.replace("{beerUpc}", beerUpc))
         .willReturn(okJson(objectMapper.writeValueAsString(beerDto))));
 
     BeerOrder beerOrder = createBeerOrder();

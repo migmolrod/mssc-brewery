@@ -40,7 +40,7 @@ public class BeerServiceRestTemplateImpl implements BeerService {
     log.debug("GBBI - Calling 'Beer Service' from 'Order Service' using UUID {}", beerId);
 
     ResponseEntity<Optional<BeerDto>> responseEntity = restTemplate.exchange(
-        beerServiceHost + URI_BEER_BY_ID,
+        beerServiceHost + "/" + URI_BEER_BY_ID,
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<>() {},
@@ -55,7 +55,7 @@ public class BeerServiceRestTemplateImpl implements BeerService {
     log.debug("GBBU - Calling 'Beer Service' from 'Order Service' using UPC {}", beerUpc);
 
     ResponseEntity<Optional<BeerDto>> responseEntity = restTemplate.exchange(
-        beerServiceHost + URI_BEER_BY_UPC,
+        beerServiceHost + "/" + URI_BEER_BY_UPC,
         HttpMethod.GET,
         null,
         new ParameterizedTypeReference<>() {},
