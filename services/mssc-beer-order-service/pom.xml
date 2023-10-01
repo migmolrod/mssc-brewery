@@ -28,6 +28,13 @@
       <version>2.2.3.RELEASE</version>
     </dependency>
 
+    <!-- service discovery -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <version>3.0.8</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.github.JensPiegsa/wiremock-extension -->
     <dependency>
       <groupId>com.github.JensPiegsa</groupId>

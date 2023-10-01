@@ -141,30 +141,35 @@ services:
       inventory:
         condition: service_healthy
 
-#  order:
-#    image: migmolrod/mssc-beer-order-service
-#    environment:
-#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
-#      - SPRING_PROFILES_ACTIVE=local-discovery,local
-#      - SPRING_ZIPKIN_BASEURL=${SPRING_ZIPKIN_BASEURL}
-#      - SPRING_ARTEMIS_HOST=${SPRING_ARTEMIS_HOST}
-#      - SPRING_CLOUD_CONFIG_URI=${SPRING_CLOUD_CONFIG_URI}
-#      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL_ORDER}
-#    ports:
-#      - "9032:9032"
-#    depends_on:
-#      mysql:
-#        condition: service_healthy
-#      jms:
-#        condition: service_started
-#      service-registry:
-#        condition: service_healthy
-#      config-server:
-#        condition: service_healthy
-#      beer:
-#        condition: service_healthy
-#      inventory:
-#        condition: service_healthy
+  order:
+    image: migmolrod/mssc-beer-order-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE}
+      - SPRING_PROFILES_ACTIVE=local-discovery,local
+      - SPRING_ZIPKIN_BASEURL=${SPRING_ZIPKIN_BASEURL}
+      - SPRING_ARTEMIS_HOST=${SPRING_ARTEMIS_HOST}
+      - SPRING_CLOUD_CONFIG_URI=${SPRING_CLOUD_CONFIG_URI}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL_ORDER}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fs http://localhost:9032/actuator/health | grep 'UP' || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 4
+    ports:
+      - "9032:9032"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      jms:
+        condition: service_started
+      service-registry:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      beer:
+        condition: service_healthy
+      inventory:
+        condition: service_healthy
 
 volumes:
   mysql-data:
