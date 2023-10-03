@@ -8,11 +8,11 @@
   <parent>
     <groupId>guru.springframework</groupId>
     <artifactId>mssc-brewery-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2</version>
   </parent>
 
   <artifactId>mssc-brewery-cloud</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>mssc-brewery-cloud</name>
   <description>Cloud services (gateway, registry, config, etc)</description>
