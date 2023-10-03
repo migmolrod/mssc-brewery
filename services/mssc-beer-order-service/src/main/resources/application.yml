@@ -1,0 +1,22 @@
+logging:
+  level:
+    guru: debug
+server:
+  port: 9032
+sfg:
+  brewery:
+    beer_service_host: http://localhost:9031
+spring:
+  application:
+    name: order-service
+  artemis:
+    broker-url: ${SPRING_ARTEMIS_HOST:tcp://localhost:61616}
+    password: ${ARTEMIS_USER:admin}
+    user: ${ARTEMIS_PASSWORD:admin}
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL
+  sql:
+    init:
+      mode: embedded
+  zipkin:
+    enabled: false

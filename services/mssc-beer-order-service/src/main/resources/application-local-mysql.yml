@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: false
+    discovery:
+      enabled: false
+  datasource:
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        rewriteBatchedStatements: true
+        useLocalSessionState: true
+        useServerPrepStmts: true
+    password: password
+    url: jdbc:mysql://localhost:3306/beerorderservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: beer_order_service
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect

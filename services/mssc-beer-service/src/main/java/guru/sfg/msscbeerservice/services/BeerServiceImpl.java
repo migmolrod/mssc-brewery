@@ -1,19 +1,19 @@
 package guru.sfg.msscbeerservice.services;
 
+import guru.sfg.brewery.model.BeerDto;
+import guru.sfg.brewery.model.BeerPagedList;
+import guru.sfg.brewery.model.BeerStyleEnum;
 import guru.sfg.msscbeerservice.domain.Beer;
 import guru.sfg.msscbeerservice.repositories.BeerRepository;
 import guru.sfg.msscbeerservice.web.controller.NotFoundException;
 import guru.sfg.msscbeerservice.web.mappers.BeerMapper;
-import guru.sfg.brewery.model.BeerDto;
-import guru.sfg.brewery.model.BeerPagedList;
-import guru.sfg.brewery.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,11 +33,11 @@ public class BeerServiceImpl implements BeerService {
     Page<Beer> beerPage;
     BeerPagedList beerPagedList;
 
-    if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+    if (!ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)) {
       beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle.name(), pageable);
-    } else if (!StringUtils.isEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
+    } else if (!ObjectUtils.isEmpty(beerName) && ObjectUtils.isEmpty(beerStyle)) {
       beerPage = beerRepository.findAllByBeerName(beerName, pageable);
-    } else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+    } else if (ObjectUtils.isEmpty(beerName) && !ObjectUtils.isEmpty(beerStyle)) {
       beerPage = beerRepository.findAllByBeerStyle(beerStyle.name(), pageable);
     } else {
       beerPage = beerRepository.findAll(pageable);

@@ -2,11 +2,13 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/cloud/mssc-api-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cloud/mssc-config-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/mssc-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/mssc-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/mssc-service-registry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cloud/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-failover/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-inventory-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/mssc-beer-order-service/src/main/java" charset="UTF-8" />

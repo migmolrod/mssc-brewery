@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="beerservice@localhost" uuid="9aeb80c9-b1ec-4d51-9049-e3af807f9ed1">
+    <data-source source="LOCAL" name="beerservice@172.17.0.3" uuid="9aeb80c9-b1ec-4d51-9049-e3af807f9ed1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/beerservice</jdbc-url>
+      <jdbc-url>jdbc:mysql://172.17.0.3:3306/beerservice</jdbc-url>
     </data-source>
     <data-source source="LOCAL" name="beerorderservice@localhost" uuid="c0a8eeea-43f7-42ce-ae09-1f7441e9f427">
       <driver-ref>mysql.8</driver-ref>
@@ -18,6 +18,9 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/beerinventoryservice</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
     </data-source>
     <data-source source="LOCAL" name="testdb@localhost" uuid="e5ce0ccd-89a8-4bb7-be37-cd72f987cb8e">
       <driver-ref>mysql.8</driver-ref>
@@ -25,6 +28,15 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/testdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="root@localhost" uuid="8ba19b55-fb7a-4f83-9802-ea0841f30575">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
     </data-source>
   </component>
 </project>

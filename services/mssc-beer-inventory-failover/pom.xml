@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>guru.springframework</groupId>
+    <artifactId>mssc-brewery-services</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+  <artifactId>mssc-beer-inventory-failover</artifactId>
+  <version>1.0.0</version>
+  <name>mssc-beer-inventory-failover</name>
+  <description>MSSC Beer Inventory Service Failover</description>
+
+  <properties>
+    <service.name>mssc-beer-inventory-failover</service.name>
+    <version.phase>${version.update.enable}</version.phase>
+    <service.version>${beer-inventory-failover.version}</service.version>
+  </properties>
+
+</project>

@@ -1,24 +1,32 @@
-# Executables (local)
-DOCKER_COMP = docker compose
+build:
+	mvn package -DskipTests -pl cloud/mssc-service-registry
+	mvn docker:build -pl cloud/mssc-service-registry
 
-# Docker containers
-BREWERY_CONT = $(DOCKER_COMP) exec #SERVICE_NAME
+	mvn package -DskipTests -pl cloud/mssc-config-server
+	mvn docker:build -pl cloud/mssc-config-server
 
-# Misc
-.DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc
+	mvn package -DskipTests -pl cloud/mssc-api-gateway
+	mvn docker:build -pl cloud/mssc-api-gateway
 
-## —— Microservices Spring Cloud Makefile —————————————————————————————————————
-help: ## Outputs this help screen
-	@grep -E '(^[a-zA-Z0-9\./_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
+	mvn package -DskipTests -pl services/mssc-beer-inventory-service
+	mvn docker:build -pl services/mssc-beer-inventory-service
 
-## —— Docker ——————————————————————————————————————————————————————————————————
-build: ## Build compiler image
-	@./deploy.sh build
+	mvn package -DskipTests -pl services/mssc-beer-service
+	mvn docker:build -pl services/mssc-beer-service
 
-run: ## Runs docker compose
-	@./deploy.sh run
+	mvn package -DskipTests -pl services/mssc-beer-order-service
+	mvn docker:build -pl services/mssc-beer-order-service
 
-#composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
-#	@$(eval c ?=)
-#	@$(COMPOSER) $(c)
+	docker image prune -f
+
+start-local:
+	docker compose -f docker-compose.yaml up -d
+
+start-debug:
+	docker compose -f docker-compose.elk.yaml up -d
+
+stop-local:
+	docker compose -f docker-compose.yaml down --volumes
+
+stop-debug:
+	docker compose -f docker-compose.elk.yaml down --volumes

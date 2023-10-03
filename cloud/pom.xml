@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--suppress ALL-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>guru.springframework</groupId>
+    <artifactId>mssc-brewery-parent</artifactId>
+    <version>1.0.2</version>
+  </parent>
+
+  <artifactId>mssc-brewery-cloud</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>mssc-brewery-cloud</name>
+  <description>Cloud services (gateway, registry, config, etc)</description>
+
+  <modules>
+    <module>mssc-api-gateway</module>
+    <module>mssc-config-server</module>
+    <module>mssc-service-registry</module>
+  </modules>
+
+  <dependencies>
+    <!-- actuator -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <!-- devtools -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <!-- testing -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>

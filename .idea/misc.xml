@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
     <list size="1">
@@ -17,6 +16,7 @@
         <option value="$PROJECT_DIR$/services/producer/pom.xml" />
         <option value="$PROJECT_DIR$/services/producer-client/pom.xml" />
         <option value="$PROJECT_DIR$/services/mssc-task-service/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud/mssc-config-server/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
