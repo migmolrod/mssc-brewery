@@ -19,8 +19,14 @@ build:
 
 	docker image prune -f
 
-up:
-	docker compose up -d
+start-local:
+	docker compose -f docker-compose.yaml up -d
 
-down:
-	docker compose down --volumes
+start-debug:
+	docker compose -f docker-compose.elk.yaml up -d
+
+stop-local:
+	docker compose -f docker-compose.yaml down --volumes
+
+stop-debug:
+	docker compose -f docker-compose.elk.yaml down --volumes
